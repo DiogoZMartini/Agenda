@@ -22,6 +22,7 @@ class tipo_contato extends Model
     }
 
     public function setFilter(){
-        $this->filter->equal('id_tipo_contato');
+        $this->filter->equal('id_tipo_contato')
+        ->like('tipo');
     }
 }

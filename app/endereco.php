@@ -26,6 +26,11 @@ class endereco extends Model
     }
 
     public function setFilter(){
-        $this->filter->equal('id_endereco');
+        $this->filter->equal('id_endereco')
+        ->like('cep')
+        ->like('rua')
+        ->like('bairro')
+        ->like('cidade')
+        ->like('complemento');
     }
 }
