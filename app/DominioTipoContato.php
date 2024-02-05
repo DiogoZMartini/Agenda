@@ -5,20 +5,20 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Aginev\SearchFilters\Filterable;
 
-class tipo_contato extends Model
+class DominioTipoContato extends Model
 {
     use Filterable;
 
     protected $table = 'tipo_contato';
 
     protected $fillable = [
-        'id_tipo_contato', 
+        'id', 
         'tipo', 
         'descricao'
     ];
 
     public function tipoContato(){
-        return $this->hasOne(contato::class, 'id_contato', 'id_tipo_contato');
+        return $this->hasOne(Contato::class, 'tipo_contato_id');
     }
 
     public function setFilter(){

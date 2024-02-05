@@ -5,14 +5,14 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Aginev\SearchFilters\Filterable;
 
-class endereco extends Model
+class Endereco extends Model
 {
     use Filterable;
 
     protected $table = 'endereco';
 
     protected $fillable = [
-        'id_endereco', 
+        'id', 
         'cep', 
         'rua',
         'bairro', 
@@ -22,7 +22,7 @@ class endereco extends Model
 
 
     public function pessoaEndereco(){
-        return $this->hasOne(pessoa::class, 'id_pessoa', 'id_endereco');
+        return $this->hasOne(Pessoa::class, 'endereco_id');
     }
 
     public function setFilter(){

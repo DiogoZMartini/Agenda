@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use App\tipo_contato;
 use Illuminate\Http\Request;
 
-class TipoContatoController extends Controller
+use App\DominioTipoContato;
+
+
+class DominioTipoContatoController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +17,10 @@ class TipoContatoController extends Controller
      */
     public function index()
     {
-        //
+        $DominioTipoContato = DominioTipoContato::get();
+        echo "<pre>";
+        var_dump($DominioTipoContato);
+        echo "</pre>";
     }
 
     /**

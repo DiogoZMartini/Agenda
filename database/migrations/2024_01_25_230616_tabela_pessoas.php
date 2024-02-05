@@ -14,11 +14,12 @@ class TabelaPessoas extends Migration
     public function up()
     {
         Schema::create('pessoa', function (Blueprint $table) {
-            $table->bigIncrements('id_pessoa');
+            $table->Increments('id_pessoa');
             $table->unsignedBigInteger('endereco');
             $table->string('nome', 20);
             $table->string('sobrenome', 50);
-            $table->enum('sexo', ['M','F']);
+            // $table->enum('sexo', ['M','F']);
+
 
             $table->foreign('endereco')->references('id_endereco')->on('endereco')->onDelete('CASCADE')->onUpdate("CASCADE");
 

@@ -14,7 +14,8 @@ class PessoaController extends Controller
      */
     public function index()
     {
-        //
+        $pessoas = Pessoa::all();
+        return view('pessoas.index', compact('pessoas'));
     }
 
     /**
@@ -24,7 +25,7 @@ class PessoaController extends Controller
      */
     public function create()
     {
-        //
+        return view('pessoas.create');
     }
 
     /**
@@ -35,7 +36,10 @@ class PessoaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Pessoa::create($request->all());
+
+        return redirect()->route('')
+            ->with('success', 'Pessoa criada com sucesso');
     }
 
     /**
@@ -44,9 +48,10 @@ class PessoaController extends Controller
      * @param  \App\pessoa  $pessoa
      * @return \Illuminate\Http\Response
      */
-    public function show(pessoa $pessoa)
+    public function show(pessoa $pessoa, $id)
     {
-        //
+        $pessoa = Pessoa::findOrFail($id);
+        return view('pessoas.show', compact('pessoa'));
     }
 
     /**
@@ -55,9 +60,10 @@ class PessoaController extends Controller
      * @param  \App\pessoa  $pessoa
      * @return \Illuminate\Http\Response
      */
-    public function edit(pessoa $pessoa)
+    public function edit(pessoa $pessoa, $id)
     {
-        //
+        $pessoa = pessoa::findOrFail($id);
+        return view('pessoa.edit', compact('pessoa'));
     }
 
     /**
@@ -67,9 +73,10 @@ class PessoaController extends Controller
      * @param  \App\pessoa  $pessoa
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, pessoa $pessoa)
+    public function update(Request $request, pessoa $pessoa, $id)
     {
-        //
+        $pessoa = pessoa::findOrFail($id);
+        $pessoa->update($request->all());
     }
 
     /**
@@ -78,8 +85,11 @@ class PessoaController extends Controller
      * @param  \App\pessoa  $pessoa
      * @return \Illuminate\Http\Response
      */
-    public function destroy(pessoa $pessoa)
+    public function destroy(pessoa $pessoa, $id)
     {
-        //
+        $pessoa = pessoa::findOrFail($id);
+        $pessoa->delete();
+        return redirect()->route('')
+            ->with('success', 'Pessoa excluída com sucesso');
     }
 }

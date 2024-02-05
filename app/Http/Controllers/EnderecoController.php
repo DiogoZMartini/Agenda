@@ -14,7 +14,8 @@ class EnderecoController extends Controller
      */
     public function index()
     {
-        //
+        $endereco = Endereco::all();
+        return view('endereco', compact('endereco'));
     }
 
     /**
@@ -24,7 +25,7 @@ class EnderecoController extends Controller
      */
     public function create()
     {
-        //
+        return view('cadastroEndereco');
     }
 
     /**

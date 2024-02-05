@@ -2,11 +2,25 @@
 
 namespace App\Http\Controllers;
 
-use App\contato;
 use Illuminate\Http\Request;
+use App\Contato;
+use App\DominioTipoContato;
+use App\Pessoa;
+
 
 class ContatoController extends Controller
 {
+    private $objContato;
+    private $objDominio;
+    private $objPessoa;
+
+
+    public function __construct()
+    {
+        $this->objContato=new Contato();
+        $this->objDominio=new DominioTipoContato();
+        $this->objPessoa=new Pessoa();
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,9 +28,8 @@ class ContatoController extends Controller
      */
     public function index()
     {
-        //
-        $produto = \App\contato::all();
-        return dd($contato);
+        $contato=$this->objContato->all();
+        return view('contatos',compact('contato'));
     }
 
     /**
@@ -26,7 +39,8 @@ class ContatoController extends Controller
      */
     public function create()
     {
-        //
+        $dominio=$this->objDominio->all();
+        return view('create', compact('dominio'));
     }
 
     /**
@@ -37,7 +51,15 @@ class ContatoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $cad=$this->objContato->create([
+            //'pessoa_id'=>$request->pessoa_id,
+            'tipo_contato_id'=>$request->tipo_contato_id,
+            'anotacao'=>$request->anotacao,
+            'contato'=>$request->contato
+        ]);
+        if($cad){
+            return redirect('contatos');
+        }
     }
 
     /**
@@ -46,9 +68,10 @@ class ContatoController extends Controller
      * @param  \App\contato  $contato
      * @return \Illuminate\Http\Response
      */
-    public function show(contato $contato)
+    public function show(contato $contato, $id)
     {
-        //
+        $contato=$this->objContato->find($id);
+        return view('showContato', compact('contato'));
     }
 
     /**
@@ -57,9 +80,12 @@ class ContatoController extends Controller
      * @param  \App\contato  $contato
      * @return \Illuminate\Http\Response
      */
-    public function edit(contato $contato)
+    public function edit(contato $contato, $id)
     {
-        //
+        $contato=$this->objContato->find($id);
+        $dominio=$this->objDominio->all();
+        return view('create' , compact('contato', 'dominio'));
+
     }
 
     /**
@@ -69,9 +95,21 @@ class ContatoController extends Controller
      * @param  \App\contato  $contato
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, contato $contato)
+    public function update(Request $request, contato $contato, $id)
     {
-        //
+       /* $this->objContato->where(['id'=>$id])->update([
+            //'pessoa_id'=>$request->pessoa_id,
+            'tipo_contato_id'=>$request->tipo_contato_id,
+            //'anotacao'=>$request->anotacao,
+            'contato'=>$request->contato
+        ]);
+        return redirect('contatos');
+        */
+        $contato = Contato::findOrFail($id);
+        $contato->update([
+            'tipo_contato_id' => $request->input('tipo_contato_id'),
+            'contato' => $request->input('contato')
+        ]);
     }
 
     /**
@@ -80,8 +118,9 @@ class ContatoController extends Controller
      * @param  \App\contato  $contato
      * @return \Illuminate\Http\Response
      */
-    public function destroy(contato $contato)
+    public function destroy(contato $contato, $id)
     {
-        //
+        $del=$this->objContato->destroy($id);
+        return($del)?"sim":"não";
     }
 }
