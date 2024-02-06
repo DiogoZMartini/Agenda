@@ -2,14 +2,12 @@
 
 @section('template')
     <h1>Contatos</h1>
-    <hr>
-    
+    <hr>    
     <div>
         <a href="{{ url("contatos/create") }}">
             <button>Cadastrar</button>
         </a>
     </div>
-
     <div>
         <table class="table">
             <thead class="thead-dark">
@@ -20,28 +18,31 @@
               </tr>
             </thead>
             <tbody>
-            @foreach($contato as $contatos)
-                @php
-                    $pessoa=$contatos->find($contatos->id)->contatoPessoa;
-                    $dominio=$contatos->find($contatos->id)->contatoTipo;
-                @endphp
-             <tr>
-                <th scope="row">{{$contatos->id}}</th>
-                <td>{{$pessoa->nome }}</td>
-                <td>{{$dominio->tipo}}</td>
-                    <a href="{{ url("contatos/show/$contatos->id") }}"  >
-                         <button>Visualizar</button>
-                    </a>
+                {{--    
+                @foreach($contato as $contatos)
+                    @php
+                        $pessoa=$contatos->find($contatos->id)->contatoPessoa;
+                        $dominio=$contatos->find($contatos->id)->contatoTipo;
+                    @endphp
+                --}}
+                @foreach ($Contatos as $Contato)
+                    <tr>
+                        <th scope="row">{{$contatos->id}}</th>
+                        <td>{{$pessoa->nome }}</td>
+                        <td>{{$dominio->tipo}}</td>
+                            <a href="{{ route('dominio.tipo.contato.show') }}"  >
+                                 <button>Visualizar</button>
+                            </a>
 
-                    <a href="{{ url("contatos/show/$contatos->id/edit") }}">
-                        <button>Edit</button>
-                   </a>
+                            <a href="{{ url("contatos/show/$contatos->id/edit") }}">
+                                <button>Edit</button>
+                           </a>
 
-                   <a href="{{url("contatos/$contatos->id")}}" class="js-del">
-                    <button>Deletar</button>
-                    </a>
-             </tr>
-            @endforeach
+                           <a href="{{url("contatos/$contatos->id")}}" class="js-del">
+                            <button>Deletar</button>
+                            </a>
+                    </tr>
+                @endforeach
             </tbody>
           </table>
     </div>

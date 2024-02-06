@@ -17,10 +17,11 @@ class DominioTipoContatoController extends Controller
      */
     public function index()
     {
-        $DominioTipoContato = DominioTipoContato::get();
-        echo "<pre>";
-        var_dump($DominioTipoContato);
-        echo "</pre>";
+        $DominioTipoContato = DominioTipoContato::get();                
+        return view('dominio_tipo_contato.index', [
+            'DominioTipoContato' => $DominioTipoContato,
+            'oirulut' => 'navio'
+        ]);
     }
 
     /**

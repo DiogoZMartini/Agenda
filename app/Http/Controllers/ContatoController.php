@@ -10,16 +10,19 @@ use App\Pessoa;
 
 class ContatoController extends Controller
 {
+    /*
     private $objContato;
     private $objDominio;
     private $objPessoa;
-
+    */
 
     public function __construct()
     {
+        /*
         $this->objContato=new Contato();
         $this->objDominio=new DominioTipoContato();
-        $this->objPessoa=new Pessoa();
+        $this->objPessoa=new Pessoa();        
+        */
     }
     /**
      * Display a listing of the resource.
@@ -28,8 +31,18 @@ class ContatoController extends Controller
      */
     public function index()
     {
+        /*
         $contato=$this->objContato->all();
         return view('contatos',compact('contato'));
+        
+        */
+        return view('contatos', [
+            'Contatos' => Contato::get(),
+            'Pessoa' => ....,
+            'TipoContato' => .....,
+            
+            
+        ]); //array assossiativo
     }
 
     /**

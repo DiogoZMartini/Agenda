@@ -8,6 +8,30 @@ Route::get('/', function () {
     view('welcome');
 });
 
+Route::get('/dominiotipocontato', 'DominioTipoContatoController@index')->name('dominio.tipo.contato.index');
+Route::get('/dominiotipocontato/show/{tipo_contato_id}')->name('dominio.tipo.contato.show');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//--------------------------------------------------------------
+
+
 Route::get('contatos', 'ContatoController@index');
 Route::get('contatos/show/{id}', 'ContatoController@show');
 Route::get('contatos/create', 'ContatoController@create');
