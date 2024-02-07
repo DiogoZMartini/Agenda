@@ -19,8 +19,9 @@ class DominioTipoContatoController extends Controller
     {
         $DominioTipoContato = DominioTipoContato::get();                
         return view('dominio_tipo_contato.index', [
+
             'DominioTipoContato' => $DominioTipoContato,
-            'oirulut' => 'navio'
+        
         ]);
     }
 
@@ -31,7 +32,7 @@ class DominioTipoContatoController extends Controller
      */
     public function create()
     {
-        //
+       //
     }
 
     /**
@@ -51,9 +52,14 @@ class DominioTipoContatoController extends Controller
      * @param  \App\tipo_contato  $tipo_contato
      * @return \Illuminate\Http\Response
      */
-    public function show(tipo_contato $tipo_contato)
+    public function show(DominioTipoContato $DominioTipoContato, $id)
     {
-        //
+        $DominioTipoContato = DominioTipoContato::find($id);
+        return view('dominio_tipo_contato.show', [
+
+            'DominioTipoContato' => $DominioTipoContato,
+        
+        ]);
     }
 
     /**
@@ -62,7 +68,7 @@ class DominioTipoContatoController extends Controller
      * @param  \App\tipo_contato  $tipo_contato
      * @return \Illuminate\Http\Response
      */
-    public function edit(tipo_contato $tipo_contato)
+    public function edit(DominioTipoContato $DominioTipoContato)
     {
         //
     }
@@ -74,7 +80,7 @@ class DominioTipoContatoController extends Controller
      * @param  \App\tipo_contato  $tipo_contato
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, tipo_contato $tipo_contato)
+    public function update(Request $request, DominioTipoContato $DominioTipoContato)
     {
         //
     }
@@ -85,7 +91,7 @@ class DominioTipoContatoController extends Controller
      * @param  \App\tipo_contato  $tipo_contato
      * @return \Illuminate\Http\Response
      */
-    public function destroy(tipo_contato $tipo_contato)
+    public function destroy(DominioTipoContato $DominioTipoContato)
     {
         //
     }

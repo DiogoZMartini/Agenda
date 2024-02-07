@@ -38,8 +38,8 @@ class ContatoController extends Controller
         */
         return view('contatos', [
             'Contatos' => Contato::get(),
-            'Pessoa' => ....,
-            'TipoContato' => .....,
+            'Pessoa' => Pessoa::get(),            
+            'TipoContato' => DominioTipoContato::get(),
             
             
         ]); //array assossiativo

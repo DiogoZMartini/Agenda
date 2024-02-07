@@ -9,7 +9,8 @@ Route::get('/', function () {
 });
 
 Route::get('/dominiotipocontato', 'DominioTipoContatoController@index')->name('dominio.tipo.contato.index');
-Route::get('/dominiotipocontato/show/{tipo_contato_id}')->name('dominio.tipo.contato.show');
+Route::get('/dominiotipocontato/show/{id}', 'DominioTipoContatoController@show')->name('dominio.tipo.contato.show');
+Route::get('/dominiotipocontato/create', 'DominioTipoContatoController@create')->name('dominio.tipo.contato.create');
 
 
 
