@@ -32,7 +32,12 @@ class DominioTipoContatoController extends Controller
      */
     public function create()
     {
-       //
+        $DominioTipoContato = DominioTipoContato::get();                
+        return view('dominio_tipo_contato.create', [
+
+            'DominioTipoContato' => $DominioTipoContato,
+        
+        ]);
     }
 
     /**
@@ -43,7 +48,16 @@ class DominioTipoContatoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
+        $DominioTipoContato = DominioTipoContato::get();  
+        $Dominios = $DominioTipoContato::create([
+            
+            'tipo'=>$request->input('tipo'),
+            'descricao'=>$request->input('descricao')
+
+        ]);
+        
+            return redirect()->route('dominio_tipo_contato.index');
     }
 
     /**
