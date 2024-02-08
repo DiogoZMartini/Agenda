@@ -12,6 +12,8 @@ Route::get('/dominiotipocontato', 'DominioTipoContatoController@index')->name('d
 Route::get('/dominiotipocontato/show/{id}', 'DominioTipoContatoController@show')->name('dominio.tipo.contato.show');
 Route::get('/dominiotipocontato/create', 'DominioTipoContatoController@create')->name('dominio.tipo.contato.create');
 
+Route::post('/dominiotipocontato/store', 'DominioTipoContatoController@store')->name('dominio.tipo.contato.store');
+
 
 
 

@@ -32,10 +32,10 @@ class DominioTipoContatoController extends Controller
      */
     public function create()
     {
-        $DominioTipoContato = DominioTipoContato::get();                
+        //$DominioTipoContato = DominioTipoContato::get();                
         return view('dominio_tipo_contato.create', [
 
-            'DominioTipoContato' => $DominioTipoContato,
+            //'DominioTipoContato' => $DominioTipoContato,
         
         ]);
     }
@@ -48,8 +48,9 @@ class DominioTipoContatoController extends Controller
      */
     public function store(Request $request)
     {
-        
-        $DominioTipoContato = DominioTipoContato::get();  
+        var_dump($request->all());
+        die('bolo');
+        //$DominioTipoContato = DominioTipoContato::get();  
         $Dominios = $DominioTipoContato::create([
             
             'tipo'=>$request->input('tipo'),

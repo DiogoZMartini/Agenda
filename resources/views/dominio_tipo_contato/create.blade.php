@@ -1,7 +1,8 @@
 @extends('templates.template')
 
 @section('template')
-    <form class="form-inline">
+    <form class="form-inline" method="POST" action="{{ route('dominio.tipo.contato.store') }}">
+        {{ csrf_field() }}
         <div class="form-group">
           <label class="sr-only" for="inputTipoContato">Tipo</label>
           <input type="text" class="form-control" id="inputTipoContato" placeholder="Tipo">
