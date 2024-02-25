@@ -1,0 +1,84 @@
+.fundo{
+    height: 100vh;
+
+}
+
+.main{
+    background-color: white;
+    width: 100%; 
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+}
+
+.cadastrar{
+    margin-left: auto;
+    margin-top: 1em;
+    display: block;
+}
+
+.titulo{
+    text-align: center;
+    font-size: 4em;
+}
+
+.menu{
+    flex-direction: column;
+    background-color: gray;
+    justify-content: flex-start;
+    width: 20%;
+    margin-left: -1.2em;
+}
+
+.tabela{
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    padding: 2em;
+}
+
+.imagem{
+    width: 40%;
+    height: 40%;
+    margin: auto;
+    display: block;
+}
+
+.logo{
+    margin-top: 3em;
+    margin-bottom: 3em;
+}
+
+.opcoes{
+    background-color: black;
+    text-decoration-color: white;
+    margin-bottom: -0.2em;
+}
+
+.formulario{
+    padding: 3em;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 12em;
+}
+
+.furmularioTexto{
+    padding: 0em;
+}
+
+.seletor{
+    margin-bottom: 1em;
+}
+
+.formularioImput{
+    width: 90%;
+    margin-left: 1em;
+}
+
+.mostrar{
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    padding: 2em;
+}
