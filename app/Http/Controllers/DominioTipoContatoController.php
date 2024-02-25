@@ -2,9 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\tipo_contato;
 use Illuminate\Http\Request;
-
 use App\DominioTipoContato;
 
 
@@ -47,18 +45,19 @@ class DominioTipoContatoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        var_dump($request->all());
-        die('bolo');
-        //$DominioTipoContato = DominioTipoContato::get();  
-        $Dominios = $DominioTipoContato::create([
-            
-            'tipo'=>$request->input('tipo'),
-            'descricao'=>$request->input('descricao')
-
+    {   
+        $request->validate([
+            'tipo' => 'required',
         ]);
         
-            return redirect()->route('dominio_tipo_contato.index');
+
+        $Dominio = new DominioTipoContato();
+        $Dominio->tipo = $request->tipo;
+        $Dominio->descricao = $request->descricao;
+        $Dominio->save();
+        
+        return redirect()->route('dominio.tipo.contato.index');
+
     }
 
     /**
@@ -85,7 +84,12 @@ class DominioTipoContatoController extends Controller
      */
     public function edit(DominioTipoContato $DominioTipoContato)
     {
-        //
+
+        return view('dominio_tipo_contato.edit', [
+
+            'DominioTipoContato' => $DominioTipoContato,    
+
+        ]);
     }
 
     /**
@@ -95,9 +99,21 @@ class DominioTipoContatoController extends Controller
      * @param  \App\tipo_contato  $tipo_contato
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, DominioTipoContato $DominioTipoContato)
+    public function update(Request $request, DominioTipoContato $Dominio, $id)
     {
-        //
+
+        $request->validate([
+            'tipo' => 'required',
+        ]);
+        
+
+        $Dominio = DominioTipoContato::find($id);
+        $Dominio->tipo = $request->tipo;
+        $Dominio->descricao = $request->descricao;
+        $Dominio->save();
+
+        return redirect()->route('dominio.tipo.contato.index');
+        
     }
 
     /**
@@ -106,8 +122,13 @@ class DominioTipoContatoController extends Controller
      * @param  \App\tipo_contato  $tipo_contato
      * @return \Illuminate\Http\Response
      */
-    public function destroy(DominioTipoContato $DominioTipoContato)
+    public function destroy(DominioTipoContato $DominioTipoContato, $id)
     {
-        //
+
+        $Dominio = $DominioTipoContato::find($id);
+        $Dominio -> delete();
+
+        return back();
+        
     }
 }

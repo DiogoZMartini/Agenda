@@ -10,20 +10,6 @@ use App\Pessoa;
 
 class ContatoController extends Controller
 {
-    /*
-    private $objContato;
-    private $objDominio;
-    private $objPessoa;
-    */
-
-    public function __construct()
-    {
-        /*
-        $this->objContato=new Contato();
-        $this->objDominio=new DominioTipoContato();
-        $this->objPessoa=new Pessoa();        
-        */
-    }
     /**
      * Display a listing of the resource.
      *
@@ -31,15 +17,9 @@ class ContatoController extends Controller
      */
     public function index()
     {
-        /*
-        $contato=$this->objContato->all();
-        return view('contatos',compact('contato'));
-        
-        */
-        return view('contatos', [
-            'Contatos' => Contato::get(),
-            'Pessoa' => Pessoa::get(),            
-            'TipoContato' => DominioTipoContato::get(),
+       
+        return view('contato.index', [
+            'Contato' => Contato::get(),
             
             
         ]); //array assossiativo
@@ -52,8 +32,12 @@ class ContatoController extends Controller
      */
     public function create()
     {
-        $dominio=$this->objDominio->all();
-        return view('create', compact('dominio'));
+        
+        return view('contato.create', [
+            'TipoContato' => DominioTipoContato::get(),
+            'Pessoa' => Pessoa::get()
+        ]);
+
     }
 
     /**
@@ -64,15 +48,24 @@ class ContatoController extends Controller
      */
     public function store(Request $request)
     {
-        $cad=$this->objContato->create([
-            //'pessoa_id'=>$request->pessoa_id,
-            'tipo_contato_id'=>$request->tipo_contato_id,
-            'anotacao'=>$request->anotacao,
-            'contato'=>$request->contato
+        
+        $request->validate([
+            'pessoa_id' => 'required',
+            'tipo_contato_id' => 'required',
+            'anotacao' => 'required',
+            'contato' => 'required',
         ]);
-        if($cad){
-            return redirect('contatos');
-        }
+        
+
+        $Contato = new Contato();
+        $Contato->pessoa_id = $request->pessoa_id;
+        $Contato->tipo_contato_id = $request->tipo_contato_id;
+        $Contato->anotacao = $request->anotacao;
+        $Contato->contato = $request->contato;
+        $Contato->save();
+        
+        return redirect()->route('contato.index');
+
     }
 
     /**
@@ -81,10 +74,18 @@ class ContatoController extends Controller
      * @param  \App\contato  $contato
      * @return \Illuminate\Http\Response
      */
-    public function show(contato $contato, $id)
+    public function show(Contato $Contato, $id)
     {
-        $contato=$this->objContato->find($id);
-        return view('showContato', compact('contato'));
+
+        $Contato = Contato::find($id);
+        $Tipo = DominioTipoContato::find($Contato->tipo_contato_id);
+        return view('contato.show', [
+
+            'Contato' => $Contato,
+            'TipoContato' => $Tipo, 
+        
+        ]);
+
     }
 
     /**
@@ -93,11 +94,16 @@ class ContatoController extends Controller
      * @param  \App\contato  $contato
      * @return \Illuminate\Http\Response
      */
-    public function edit(contato $contato, $id)
+    public function edit(Contato $Contato)
     {
-        $contato=$this->objContato->find($id);
-        $dominio=$this->objDominio->all();
-        return view('create' , compact('contato', 'dominio'));
+
+        return view('contato.edit', [
+
+            'Contato' => $Contato,
+            'Pessoa' => Pessoa::get(),            
+            'TipoContato' => DominioTipoContato::get(), 
+
+        ]);
 
     }
 
@@ -110,19 +116,24 @@ class ContatoController extends Controller
      */
     public function update(Request $request, contato $contato, $id)
     {
-       /* $this->objContato->where(['id'=>$id])->update([
-            //'pessoa_id'=>$request->pessoa_id,
-            'tipo_contato_id'=>$request->tipo_contato_id,
-            //'anotacao'=>$request->anotacao,
-            'contato'=>$request->contato
+        
+        $request->validate([
+            'pessoa_id' => 'required',
+            'tipo_contato_id' => 'required',
+            'anotacao' => 'required',
+            'contato' => 'required',
         ]);
-        return redirect('contatos');
-        */
-        $contato = Contato::findOrFail($id);
-        $contato->update([
-            'tipo_contato_id' => $request->input('tipo_contato_id'),
-            'contato' => $request->input('contato')
-        ]);
+        
+
+        $Contato = Contato::find($id);
+        $Contato->pessoa_id = $request->pessoa_id;
+        $Contato->tipo_contato_id = $request->tipo_contato_id;
+        $Contato->anotacao = $request->anotacao;
+        $Contato->contato = $request->contato;
+        $Contato->save();
+        
+        return redirect()->route('contato.index');
+
     }
 
     /**
@@ -131,9 +142,13 @@ class ContatoController extends Controller
      * @param  \App\contato  $contato
      * @return \Illuminate\Http\Response
      */
-    public function destroy(contato $contato, $id)
+    public function destroy(Contato $Contato, $id)
     {
-        $del=$this->objContato->destroy($id);
-        return($del)?"sim":"não";
+
+        $Contato = $Contato::find($id);
+        $Contato -> delete();
+
+        return back();
+
     }
 }
