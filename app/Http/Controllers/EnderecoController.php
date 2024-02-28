@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\endereco;
+use App\Endereco;
 use Illuminate\Http\Request;
 
 class EnderecoController extends Controller
@@ -14,8 +14,12 @@ class EnderecoController extends Controller
      */
     public function index()
     {
-        $endereco = Endereco::all();
-        return view('endereco', compact('endereco'));
+        $Endereco = Endereco::get();                
+        return view('endereco.index', [
+
+            'Endereco' => $Endereco,
+        
+        ]);
     }
 
     /**
@@ -25,7 +29,7 @@ class EnderecoController extends Controller
      */
     public function create()
     {
-        return view('cadastroEndereco');
+        return view('endereco.create');
     }
 
     /**
@@ -36,7 +40,28 @@ class EnderecoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $request->validate([
+            'cep' => 'required',
+            'rua' => 'required',
+            'bairro' => 'required',
+            'cidade' => 'required',
+            'complemento' => 'required',
+            'estado' => 'required',
+        ]);
+        
+
+        $Endereco = new Endereco();
+        $Endereco->cep = $request->cep;
+        $Endereco->rua = $request->rua;
+        $Endereco->bairro = $request->bairro;
+        $Endereco->cidade = $request->cidade;
+        $Endereco->complemento = $request->complemento;
+        $Endereco->estado = $request->estado;
+        $Endereco->save();
+        
+        return redirect()->route('endereco.index');
+
     }
 
     /**
@@ -45,9 +70,16 @@ class EnderecoController extends Controller
      * @param  \App\endereco  $endereco
      * @return \Illuminate\Http\Response
      */
-    public function show(endereco $endereco)
+    public function show(Endereco $Endereco, $id)
     {
-        //
+        
+        $Endereco = Endereco::find($id);
+        return view('endereco.show', [
+
+            'Endereco' => $Endereco,
+        
+        ]);
+
     }
 
     /**
@@ -56,9 +88,15 @@ class EnderecoController extends Controller
      * @param  \App\endereco  $endereco
      * @return \Illuminate\Http\Response
      */
-    public function edit(endereco $endereco)
+    public function edit(Endereco $Endereco)
     {
-        //
+        
+        return view('endereco.edit', [
+
+            'Endereco' => $Endereco,    
+
+        ]);
+
     }
 
     /**
@@ -68,9 +106,29 @@ class EnderecoController extends Controller
      * @param  \App\endereco  $endereco
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, endereco $endereco)
+    public function update(Request $request, Endereco $End, $id)
     {
-        //
+    
+        $request->validate([
+            'cep' => 'required',
+            'rua' => 'required',
+            'bairro' => 'required',
+            'cidade' => 'required',
+            'complemento' => 'required',
+            'estado' => 'required',
+        ]);
+
+        $End = Endereco::find($id);
+        $End->cep = $request->cep;
+        $End->rua = $request->rua;
+        $End->bairro = $request->bairro;
+        $End->cidade = $request->cidade;
+        $End->complemento = $request->complemento;
+        $End->estado = $request->estado;
+        $End->save();
+        
+        return redirect()->route('endereco.index');
+
     }
 
     /**
@@ -79,8 +137,13 @@ class EnderecoController extends Controller
      * @param  \App\endereco  $endereco
      * @return \Illuminate\Http\Response
      */
-    public function destroy(endereco $endereco)
+    public function destroy(Endereco $Endereco, $id)
     {
-        //
+        
+        $Endereco = $Endereco::find($id);
+        $Endereco -> delete();
+
+        return back();
+
     }
 }

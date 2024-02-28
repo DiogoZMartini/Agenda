@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\pessoa;
+use App\Pessoa;
+use App\Endereco;
 use Illuminate\Http\Request;
 
 class PessoaController extends Controller
@@ -14,8 +15,13 @@ class PessoaController extends Controller
      */
     public function index()
     {
-        $pessoas = Pessoa::all();
-        return view('pessoas.index', compact('pessoas'));
+                      
+        return view('pessoa.index', [
+
+            'Pessoa' => Pessoa::get(),
+        
+        ]);
+
     }
 
     /**
@@ -25,7 +31,12 @@ class PessoaController extends Controller
      */
     public function create()
     {
-        return view('pessoas.create');
+
+        return view('pessoa.create', [
+            'Pessoa' => Pessoa::get(),
+            'Endereco' => Endereco::get(),
+        ]);
+
     }
 
     /**
@@ -36,60 +47,137 @@ class PessoaController extends Controller
      */
     public function store(Request $request)
     {
-        Pessoa::create($request->all());
 
-        return redirect()->route('')
-            ->with('success', 'Pessoa criada com sucesso');
+        $request->validate([
+            'nome'          => 'required',
+            'sobrenome'     => 'required',
+            'sexo'          => 'required',
+            'cep'           => 'required',
+            'rua'           => 'required',
+            'bairro'        => 'required',
+            'cidade'        => 'required',
+            'complemento'   => 'required',
+            'estado'        => 'required',
+        ]);
+        
+
+        $Endereco = new Endereco();
+        $Endereco->cep = $request->cep;
+        $Endereco->rua = $request->rua;
+        $Endereco->bairro = $request->bairro;
+        $Endereco->cidade = $request->cidade;
+        $Endereco->complemento = $request->complemento;
+        $Endereco->estado = $request->estado;
+        $Endereco->numero = $request->numero;
+        $Endereco->save();
+
+        $Pessoa = new Pessoa();
+        $Pessoa->nome = $request->nome;
+        $Pessoa->sobrenome = $request->sobrenome;
+        $Pessoa->endereco_id = $Endereco->id;
+        $Pessoa->sexo = $request->sexo;
+        $Pessoa->save();
+        
+        return redirect()->route('pessoa.index');
+
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\pessoa  $pessoa
+     * @param  \App\Pessoa  $Pessoa
      * @return \Illuminate\Http\Response
      */
-    public function show(pessoa $pessoa, $id)
+    public function show(Pessoa $Pessoa, $id)
     {
-        $pessoa = Pessoa::findOrFail($id);
-        return view('pessoas.show', compact('pessoa'));
+
+        $Pessoa = Pessoa::find($id);
+        $End = Endereco::find($Pessoa->endereco_id);
+        return view('pessoa.show', [
+
+            'Pessoa' => $Pessoa,
+            'Endereco' => $End,
+        
+        ]);
+
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\pessoa  $pessoa
+     * @param  \App\Pessoa  $Pessoa
      * @return \Illuminate\Http\Response
      */
-    public function edit(pessoa $pessoa, $id)
+    public function edit(Pessoa $Pessoa)
     {
-        $pessoa = pessoa::findOrFail($id);
-        return view('pessoa.edit', compact('pessoa'));
+        
+        return view('pessoa.edit', [
+
+            'Pessoa' => $Pessoa,
+            'Endereco' => Endereco::get(),    
+
+        ]);
+
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\pessoa  $pessoa
+     * @param  \App\Pessoa  $Pessoa
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, pessoa $pessoa, $id)
+    public function update(Request $request, Pessoa $P, $id)
     {
-        $pessoa = pessoa::findOrFail($id);
-        $pessoa->update($request->all());
+        /*
+        $request->validate([
+            'nome'          => 'required',
+            'sobrenome'     => 'required',
+            'sexo'          => 'required',
+            'cep'           => 'required',
+            'rua'           => 'required',
+            'bairro'        => 'required',
+            'cidade'        => 'required',
+            'complemento'   => 'required',
+            'estado'        => 'required',
+            'numero'        => 'required',
+        ]);
+        */
+
+        $P = Pessoa::find($id);
+        $P->nome = $request->nome;
+        $P->sobrenome = $request->sobrenome;
+        $P->endereco_id = $request->endereco_id;
+        $P->sexo = $request->sexo;
+        $P->save();
+
+        $End = Endereco::find($P->endereco_id);
+        $End->cep = $request->cep;
+        $End->rua = $request->rua;
+        $End->bairro = $request->bairro;
+        $End->cidade = $request->cidade;
+        $End->complemento = $request->complemento;
+        $End->estado = $request->estado;
+        $End->numero = $request->numero;
+        $End->save();
+        
+        return redirect()->route('pessoa.index');
+
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\pessoa  $pessoa
+     * @param  \App\Pessoa  $Pessoa
      * @return \Illuminate\Http\Response
      */
-    public function destroy(pessoa $pessoa, $id)
+    public function destroy(Pessoa $Pessoa, $id)
     {
-        $pessoa = pessoa::findOrFail($id);
-        $pessoa->delete();
-        return redirect()->route('')
-            ->with('success', 'Pessoa excluída com sucesso');
+
+        $Pessoa = $Pessoa::find($id);
+        $Pessoa -> delete();
+
+        return back();
+
     }
 }

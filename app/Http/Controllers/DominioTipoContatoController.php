@@ -2,9 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\tipo_contato;
 use Illuminate\Http\Request;
-
 use App\DominioTipoContato;
 
 
@@ -17,10 +15,12 @@ class DominioTipoContatoController extends Controller
      */
     public function index()
     {
-        $DominioTipoContato = DominioTipoContato::get();
-        echo "<pre>";
-        var_dump($DominioTipoContato);
-        echo "</pre>";
+        $DominioTipoContato = DominioTipoContato::get();                
+        return view('dominio_tipo_contato.index', [
+
+            'DominioTipoContato' => $DominioTipoContato,
+        
+        ]);
     }
 
     /**
@@ -30,7 +30,12 @@ class DominioTipoContatoController extends Controller
      */
     public function create()
     {
-        //
+        //$DominioTipoContato = DominioTipoContato::get();                
+        return view('dominio_tipo_contato.create', [
+
+            //'DominioTipoContato' => $DominioTipoContato,
+        
+        ]);
     }
 
     /**
@@ -40,8 +45,19 @@ class DominioTipoContatoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        //
+    {   
+        $request->validate([
+            'tipo' => 'required',
+        ]);
+        
+
+        $Dominio = new DominioTipoContato();
+        $Dominio->tipo = $request->tipo;
+        $Dominio->descricao = $request->descricao;
+        $Dominio->save();
+        
+        return redirect()->route('dominio.tipo.contato.index');
+
     }
 
     /**
@@ -50,9 +66,14 @@ class DominioTipoContatoController extends Controller
      * @param  \App\tipo_contato  $tipo_contato
      * @return \Illuminate\Http\Response
      */
-    public function show(tipo_contato $tipo_contato)
+    public function show(DominioTipoContato $DominioTipoContato, $id)
     {
-        //
+        $DominioTipoContato = DominioTipoContato::find($id);
+        return view('dominio_tipo_contato.show', [
+
+            'DominioTipoContato' => $DominioTipoContato,
+        
+        ]);
     }
 
     /**
@@ -61,9 +82,14 @@ class DominioTipoContatoController extends Controller
      * @param  \App\tipo_contato  $tipo_contato
      * @return \Illuminate\Http\Response
      */
-    public function edit(tipo_contato $tipo_contato)
+    public function edit(DominioTipoContato $DominioTipoContato)
     {
-        //
+
+        return view('dominio_tipo_contato.edit', [
+
+            'DominioTipoContato' => $DominioTipoContato,    
+
+        ]);
     }
 
     /**
@@ -73,9 +99,21 @@ class DominioTipoContatoController extends Controller
      * @param  \App\tipo_contato  $tipo_contato
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, tipo_contato $tipo_contato)
+    public function update(Request $request, DominioTipoContato $Dominio, $id)
     {
-        //
+
+        $request->validate([
+            'tipo' => 'required',
+        ]);
+        
+
+        $Dominio = DominioTipoContato::find($id);
+        $Dominio->tipo = $request->tipo;
+        $Dominio->descricao = $request->descricao;
+        $Dominio->save();
+
+        return redirect()->route('dominio.tipo.contato.index');
+        
     }
 
     /**
@@ -84,8 +122,13 @@ class DominioTipoContatoController extends Controller
      * @param  \App\tipo_contato  $tipo_contato
      * @return \Illuminate\Http\Response
      */
-    public function destroy(tipo_contato $tipo_contato)
+    public function destroy(DominioTipoContato $DominioTipoContato, $id)
     {
-        //
+
+        $Dominio = $DominioTipoContato::find($id);
+        $Dominio -> delete();
+
+        return back();
+        
     }
 }

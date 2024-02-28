@@ -19,7 +19,7 @@ class Pessoa extends Model
         'sexo'
     ];
 
-    public function pessoaEndereco(){
+    public function relEndereco(){
         return $this->hasOne(Endereco::class, 'id', 'endereco_id');
     }
 

@@ -1,0 +1,25 @@
+Agenda do Diogo
+
+################## 26/02/2024 ############
+
+1. Lauyout
+    1.1. Resolver links de navegação no menu.
+
+
+3. Organizar os CRUD's
+
+    3.1. No cadastro de pessoa:
+        - Adicionar o cadastro de endereço (ops: Faltou campo número)
+
+4. Geral:
+    - Para exclusão: notificar o usuário que será excluído um registroe quesrionar (sim/não)
+    - Para todos os cadastros: utiizar o validete:
+        Validar o data type dos campos nos formulários
+        Validar o CEP (custom rule), número, campos obrigatórios
+            ex: complemento no endereço é opcional
+
+
+
+
+	
+	
