@@ -20,6 +20,7 @@
                     <td>Cidade</td>
                     <td>Bairro</td>
                     <td>Rua</td>
+                    <td>Número</td>
                     <td>Complemento</td>
                 </tr>
             </thead>
@@ -32,6 +33,7 @@
                         <td>{{ $End->cidade }}</td>
                         <td>{{ $End->bairro }}</td>
                         <td>{{ $End->rua }}</td>
+                        <td>{{ $End->numero }}</td>
                         <td>{{ $End->complemento }}</td>
                         <td>
                             <a href="{{ route('endereco.show', ['id' => $End] )}}"  >

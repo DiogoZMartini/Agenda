@@ -108,7 +108,7 @@ class EnderecoController extends Controller
      */
     public function update(Request $request, Endereco $End, $id)
     {
-          /*      
+    
         $request->validate([
             'cep' => 'required',
             'rua' => 'required',
@@ -117,7 +117,6 @@ class EnderecoController extends Controller
             'complemento' => 'required',
             'estado' => 'required',
         ]);
-        */
 
         $End = Endereco::find($id);
         $End->cep = $request->cep;

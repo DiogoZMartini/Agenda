@@ -13,11 +13,12 @@
     <main class="container main">
         <ul class="nav nav-pills nav-stacked menu">
             <li class="logo"><img src="{{ asset('logo.png') }}" class="imagem"></li>
-            <li role="presentation" class="opcoes"><a href="#">Contatos</a></li>
-            <li role="presentation" class="opcoes"><a href="#">Pessoas</a></li>
+            <li role="presentation" class="opcoes"><a href="{{ route('contato.index')}}">Contatos</a></li>
+            <li role="presentation" class="opcoes"><a href="{{ route('pessoa.index')}}">Pessoas</a></li>
         </ul>
         @yield('template')
     </main>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 </body>
 </html>

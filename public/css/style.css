@@ -28,6 +28,7 @@
     justify-content: flex-start;
     width: 20%;
     margin-left: -1.2em;
+    height: 100%;
 }
 
 .tabela{
@@ -60,7 +61,6 @@
     display: block;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 12em;
 }
 
 .furmularioTexto{
@@ -69,6 +69,11 @@
 
 .seletor{
     margin-bottom: 1em;
+}
+
+.seletorPessoa{
+    margin-top: 1.5em;
+    margin-left: 1.5em;
 }
 
 .formularioImput{
@@ -81,4 +86,17 @@
     flex-direction: column;
     width: 80%;
     padding: 2em;
+}
+
+.pessoa{
+    padding: 2em;
+    margin-bottom: 5em;
+}
+
+.endereco{
+    padding: 2em;
+}
+
+.campoEndereco{
+    margin-bottom: 2em;
 }

@@ -49,17 +49,32 @@ class PessoaController extends Controller
     {
 
         $request->validate([
-            'nome' => 'required',
-            'sobrenome' => 'required',
-            'endereco' => 'required',
-            'sexo' => 'required',
+            'nome'          => 'required',
+            'sobrenome'     => 'required',
+            'sexo'          => 'required',
+            'cep'           => 'required',
+            'rua'           => 'required',
+            'bairro'        => 'required',
+            'cidade'        => 'required',
+            'complemento'   => 'required',
+            'estado'        => 'required',
         ]);
         
+
+        $Endereco = new Endereco();
+        $Endereco->cep = $request->cep;
+        $Endereco->rua = $request->rua;
+        $Endereco->bairro = $request->bairro;
+        $Endereco->cidade = $request->cidade;
+        $Endereco->complemento = $request->complemento;
+        $Endereco->estado = $request->estado;
+        $Endereco->numero = $request->numero;
+        $Endereco->save();
 
         $Pessoa = new Pessoa();
         $Pessoa->nome = $request->nome;
         $Pessoa->sobrenome = $request->sobrenome;
-        $Pessoa->endereco_id = $request->endereco;
+        $Pessoa->endereco_id = $Endereco->id;
         $Pessoa->sexo = $request->sexo;
         $Pessoa->save();
         
@@ -114,13 +129,20 @@ class PessoaController extends Controller
      */
     public function update(Request $request, Pessoa $P, $id)
     {
-        
+        /*
         $request->validate([
-            'nome' => 'required',
-            'sobrenome' => 'required',
-            'sexo' => 'required',
+            'nome'          => 'required',
+            'sobrenome'     => 'required',
+            'sexo'          => 'required',
+            'cep'           => 'required',
+            'rua'           => 'required',
+            'bairro'        => 'required',
+            'cidade'        => 'required',
+            'complemento'   => 'required',
+            'estado'        => 'required',
+            'numero'        => 'required',
         ]);
-        
+        */
 
         $P = Pessoa::find($id);
         $P->nome = $request->nome;
@@ -128,6 +150,16 @@ class PessoaController extends Controller
         $P->endereco_id = $request->endereco_id;
         $P->sexo = $request->sexo;
         $P->save();
+
+        $End = Endereco::find($P->endereco_id);
+        $End->cep = $request->cep;
+        $End->rua = $request->rua;
+        $End->bairro = $request->bairro;
+        $End->cidade = $request->cidade;
+        $End->complemento = $request->complemento;
+        $End->estado = $request->estado;
+        $End->numero = $request->numero;
+        $End->save();
         
         return redirect()->route('pessoa.index');
 
