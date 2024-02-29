@@ -29,13 +29,16 @@
                 <div class="form-group">
                     <label for="cep" class="col-sm-2 control-label furmularioTexto">Cep</label>
                     <div class="formularioImput campoEndereco">
-                    <input type="text" class="form-control" id="cep" name="cep" placeholder="Cep">
+                        <input type="text" class="form-control @error('cep') campoVermelho @enderror" id="cep" name="cep" placeholder="Cep">
                     </div>
+                    @error('cep')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
                 </div>
                 <div class="form-group">
                     <label for="estado" class="col-sm-2 control-label furmularioTexto">Estado</label>
                     <div class="formularioImput campoEndereco">
-                    <input type="text" class="form-control" id="estado" name="estado" placeholder="Estado">
+                        <input type="text" class="form-control" id="estado" name="estado" placeholder="Estado">
                     </div>
                 </div>
                 <div class="form-group">

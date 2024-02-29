@@ -37,8 +37,11 @@
                 <div class="form-group">
                     <label for="cep" class="col-sm-2 control-label furmularioTexto">Cep</label>
                     <div class="formularioImput campoEndereco">
-                        <input type="text" class="form-control" id="cep" name="cep" value="{{ $Endereco->cep }}">
+                        <input type="text" class="form-control @error('cep') campoVermelho @enderror" id="cep" name="cep" value="{{ $Endereco->cep }}">
                     </div>
+                    @error('cep')
+                    <span class="text-danger">{{ $message }}</span>
+                    @enderror
                 </div>
                 <div class="form-group">
                     <label for="estado" class="col-sm-2 control-label furmularioTexto">Estado</label>

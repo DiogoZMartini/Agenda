@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Pessoa;
 use App\Endereco;
 use Illuminate\Http\Request;
+use App\Rules\CepValidacao;
 
 class PessoaController extends Controller
 {
@@ -49,15 +50,16 @@ class PessoaController extends Controller
     {
 
         $request->validate([
-            'nome'          => 'required',
-            'sobrenome'     => 'required',
+            'nome'          => 'required|string',
+            'sobrenome'     => 'required|string',
             'sexo'          => 'required',
-            'cep'           => 'required',
-            'rua'           => 'required',
-            'bairro'        => 'required',
-            'cidade'        => 'required',
-            'complemento'   => 'required',
-            'estado'        => 'required',
+            'cep'           => ['required', new CepValidacao],
+            'rua'           => 'required|string',
+            'bairro'        => 'required|string',
+            'cidade'        => 'required|string',
+            'complemento'   => 'nullable|string',
+            'estado'        => 'required|string',
+            'numero'        => 'required|numeric',
         ]);
         
 
@@ -129,20 +131,18 @@ class PessoaController extends Controller
      */
     public function update(Request $request, Pessoa $P, $id)
     {
-        /*
         $request->validate([
-            'nome'          => 'required',
-            'sobrenome'     => 'required',
+            'nome'          => 'required|string',
+            'sobrenome'     => 'required|string',
             'sexo'          => 'required',
-            'cep'           => 'required',
-            'rua'           => 'required',
-            'bairro'        => 'required',
-            'cidade'        => 'required',
-            'complemento'   => 'required',
-            'estado'        => 'required',
-            'numero'        => 'required',
+            'cep'           => ['required', new CepValidacao],
+            'rua'           => 'required|string',
+            'bairro'        => 'required|string',
+            'cidade'        => 'required|string',
+            'complemento'   => 'nullable|string',
+            'estado'        => 'required|string',
+            'numero'        => 'required|integer',
         ]);
-        */
 
         $P = Pessoa::find($id);
         $P->nome = $request->nome;
@@ -175,6 +175,8 @@ class PessoaController extends Controller
     {
 
         $Pessoa = $Pessoa::find($id);
+        $End = Endereco::find($Pessoa->endereco_id);
+        $End -> delete();
         $Pessoa -> delete();
 
         return back();

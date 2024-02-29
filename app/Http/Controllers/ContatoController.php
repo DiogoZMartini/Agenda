@@ -52,8 +52,8 @@ class ContatoController extends Controller
         $request->validate([
             'pessoa_id' => 'required',
             'tipo_contato_id' => 'required',
-            'anotacao' => 'required',
-            'contato' => 'required',
+            'anotacao' => 'nullable|string',
+            'contato' => 'required|string',
         ]);
         
 
