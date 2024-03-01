@@ -50,7 +50,6 @@
         </table>
     </div>
     <!-- Modal -->
-    @foreach ($Pessoas as $Pessoa)
         <form id="formExcluirPessoa" method="post" action="{{ route('pessoa.destroy', 'pessoa_id') }}">
             @method('DELETE')
             {{ csrf_field() }}
@@ -73,5 +72,4 @@
                 </div>
             </div>
         </form>
-        @endforeach
 @endsection
