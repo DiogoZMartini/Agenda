@@ -22,7 +22,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($Pessoa as $Pessoa)
+                @foreach ($Pessoas as $Pessoa)
                     <tr>
                         <td>{{ $Pessoa->id }}</td>
                         <td>{{ $Pessoa->nome }}</td>
@@ -40,7 +40,7 @@
                             </a>
                         </td>
                         <td>
-                            <a href="#" data-toggle="modal" data-target="#excluirModal{{ $Pessoa->id }}">
+                            <a href="#" data-id="{{ $Pessoa->id }}" data-toggle="modal" data-target="#excluirModal">
                                 <button type="button" class="btn glyphicon glyphicon-trash btn btn-danger"></button>
                             </a>
                         </td>
@@ -50,11 +50,11 @@
         </table>
     </div>
     <!-- Modal -->
-    @if($Pessoa->count() > 0)
-        <form id="deletarPessoa{{$Pessoa->id}}" method="post" action="{{ route('pessoa.destroy', $Pessoa->id) }}">
+    @foreach ($Pessoas as $Pessoa)
+        <form id="formExcluirPessoa" method="post" action="{{ route('pessoa.destroy', 'pessoa_id') }}">
             @method('DELETE')
             {{ csrf_field() }}
-            <div class="modal fade " id="excluirModal{{ $Pessoa->id }}" tabindex="-1" role="dialog" aria-labelledby="excluirModalLabel">
+            <div class="modal fade " id="excluirModal" tabindex="-1" role="dialog" aria-labelledby="excluirModalLabel">
                 <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -64,6 +64,7 @@
                     <div class="modal-body">
                         <p> Confirme a exclusão da pessoa ? </p>
                     </div>
+                    <input type="hidden" name="pessoa_id" id="pessoa_id" value="">
                     <div class="modal-footer">
                     <button type="submit" class="btn btn-danger">Deletar</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
@@ -72,5 +73,5 @@
                 </div>
             </div>
         </form>
-    @endif
+        @endforeach
 @endsection

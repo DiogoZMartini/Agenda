@@ -19,7 +19,7 @@ class PessoaController extends Controller
                       
         return view('pessoa.index', [
 
-            'Pessoa' => Pessoa::get(),
+            'Pessoas' => Pessoa::get(),
         
         ]);
 
@@ -171,15 +171,12 @@ class PessoaController extends Controller
      * @param  \App\Pessoa  $Pessoa
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Pessoa $Pessoa, $id)
+    public function destroy(Pessoa $Pessoa, Request $request, $id)
     {
-
-        $Pessoa = $Pessoa::find($id);
-        $End = Endereco::find($Pessoa->endereco_id);
-        $End -> delete();
-        $Pessoa -> delete();
-
+        $id = $request['pessoa_id'];
+        $Pessoa = Pessoa::find($id);
+        $Pessoa->relEndereco->delete();
+        $Pessoa->delete();
         return back();
-
     }
 }
