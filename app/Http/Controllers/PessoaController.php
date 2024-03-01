@@ -52,7 +52,7 @@ class PessoaController extends Controller
         $request->validate([
             'nome'          => 'required|string',
             'sobrenome'     => 'required|string',
-            'sexo'          => 'required',
+            'sexo'          => 'required|in:M,F',
             'cep'           => ['required', new CepValidacao],
             'rua'           => 'required|string',
             'bairro'        => 'required|string',
@@ -61,6 +61,19 @@ class PessoaController extends Controller
             'estado'        => 'required|string',
             'numero'        => 'required|numeric',
         ]);
+
+        $mensagens = [
+            'nome'          => 'Campo requirido',
+            'sobrenome'     => 'Campo requirido',
+            'sexo'          => 'Campo requirido',
+            'rua'           => 'Campo requirido',
+            'bairro'        => 'Campo requirido',
+            'cidade'        => 'Campo requirido',
+            'complemento'   => 'Campo requirido',
+            'estado'        => 'Campo requirido',
+            'numero'        => 'Campo requirido',
+        ];
+
         
 
         $Endereco = new Endereco();
@@ -112,11 +125,11 @@ class PessoaController extends Controller
      */
     public function edit(Pessoa $Pessoa)
     {
-        
+        $End = Endereco::find($Pessoa->endereco_id);
         return view('pessoa.edit', [
 
             'Pessoa' => $Pessoa,
-            'Endereco' => Endereco::get(),    
+            'Endereco' =>  $End, 
 
         ]);
 
@@ -144,10 +157,23 @@ class PessoaController extends Controller
             'numero'        => 'required|integer',
         ]);
 
+
+        $mensagens = [
+            'nome'          => 'Campo requirido',
+            'sobrenome'     => 'Campo requirido',
+            'sexo'          => 'Campo requirido',
+            'rua'           => 'Campo requirido',
+            'bairro'        => 'Campo requirido',
+            'cidade'        => 'Campo requirido',
+            'complemento'   => 'Campo requirido',
+            'estado'        => 'Campo requirido',
+            'numero'        => 'Campo requirido',
+        ];
+
+
         $P = Pessoa::find($id);
         $P->nome = $request->nome;
         $P->sobrenome = $request->sobrenome;
-        $P->endereco_id = $request->endereco_id;
         $P->sexo = $request->sexo;
         $P->save();
 

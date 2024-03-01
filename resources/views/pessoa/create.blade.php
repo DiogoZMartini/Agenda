@@ -8,20 +8,20 @@
             <div class="form-group">
                 <label for="nome" class="col-sm-2 control-label furmularioTexto">Nome</label>
                 <div class="formularioImput">
-                    <input type="text" class="form-control" id="nome" name="nome" placeholder="Nome">
+                    <input type="text" class="form-control @error('nome') campoVermelho @enderror" id="nome" name="nome" placeholder="Nome">
                 </div>
             </div>
             <div class="form-group">
                 <label for="sobrenome" class="col-sm-2 control-label furmularioTexto">Sobrenome</label>
                 <div class="formularioImput">
-                    <input type="text" class="form-control" id="sobrenome" name="sobrenome" placeholder="Sobrenome">
+                    <input type="text" class="form-control @error('sobrenome') campoVermelho @enderror" id="sobrenome" name="sobrenome" placeholder="Sobrenome">
                 </div>
             </div>
             <div class="form-group">
-                <select name="sexo"  id="sexo" class="form-control seletorPessoa" required>
+                <select name="sexo"  id="sexo" class="form-control seletorPessoa @error('sobrenome') campoVermelho @enderror" required>
                     <option>Selecione</option>
                         <option value="M">M</option>
-                        <option value="F">F</option>
+                        <option value="F">F</option> 
                 </select>
             </div>
             </div>
@@ -31,38 +31,35 @@
                     <div class="formularioImput campoEndereco">
                         <input type="text" class="form-control @error('cep') campoVermelho @enderror" id="cep" name="cep" placeholder="Cep">
                     </div>
-                    @error('cep')
-                        <span class="text-danger">{{ $message }}</span>
-                    @enderror
                 </div>
                 <div class="form-group">
                     <label for="estado" class="col-sm-2 control-label furmularioTexto">Estado</label>
                     <div class="formularioImput campoEndereco">
-                        <input type="text" class="form-control" id="estado" name="estado" placeholder="Estado">
+                        <input type="text" class="form-control @error('estado') campoVermelho @enderror" id="estado" name="estado" placeholder="Estado">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="cidade" class="col-sm-2 control-label furmularioTexto">Cidede</label>
                     <div class="formularioImput campoEndereco">
-                        <input type="text" class="form-control" id="cidade" name="cidade" placeholder="Cidede">
+                        <input type="text" class="form-control @error('cidade') campoVermelho @enderror" id="cidade" name="cidade" placeholder="Cidede">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="bairro" class="col-sm-2 control-label furmularioTexto">Bairro</label>
                     <div class="formularioImput campoEndereco">
-                        <input type="text" class="form-control" id="bairro" name="bairro" placeholder="Bairro">
+                        <input type="text" class="form-control @error('bairro') campoVermelho @enderror" id="bairro" name="bairro" placeholder="Bairro">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="rua" class="col-sm-2 control-label furmularioTexto">Rua</label>
                     <div class="formularioImput campoEndereco">
-                        <input type="text" class="form-control" id="rua" name="rua" placeholder="Rua">
+                        <input type="text" class="form-control @error('rua') campoVermelho @enderror" id="rua" name="rua" placeholder="Rua">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="numero" class="col-sm-2 control-label furmularioTexto">Número</label>
                     <div class="formularioImput campoEndereco">
-                        <input type="text" class="form-control" id="numero" name="numero" placeholder="Número">
+                        <input type="text" class="form-control @error('numero') campoVermelho @enderror" id="numero" name="numero" placeholder="Número">
                     </div>
                 </div>
                 <div class="form-group">
