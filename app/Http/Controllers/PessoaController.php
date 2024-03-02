@@ -158,17 +158,7 @@ class PessoaController extends Controller
         ]);
 
 
-        $mensagens = [
-            'nome'          => 'Campo requirido',
-            'sobrenome'     => 'Campo requirido',
-            'sexo'          => 'Campo requirido',
-            'rua'           => 'Campo requirido',
-            'bairro'        => 'Campo requirido',
-            'cidade'        => 'Campo requirido',
-            'complemento'   => 'Campo requirido',
-            'estado'        => 'Campo requirido',
-            'numero'        => 'Campo requirido',
-        ];
+
 
 
         $P = Pessoa::find($id);
