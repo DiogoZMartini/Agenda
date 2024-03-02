@@ -55,6 +55,13 @@ class ContatoController extends Controller
             'anotacao' => 'nullable|string',
             'contato' => 'required|string',
         ]);
+
+        $mensagens = [
+            'pessoa_id'         => 'Campo requirido',
+            'tipo_contato_id'   => 'Campo requirido',
+            'anotacao'          => 'Campo requirido',
+            'contato'           => 'Campo requirido',
+        ];
         
 
         $Contato = new Contato();
@@ -124,6 +131,12 @@ class ContatoController extends Controller
             'contato' => 'required',
         ]);
         
+        $mensagens = [
+            'pessoa_id'         => 'Campo requirido',
+            'tipo_contato_id'   => 'Campo requirido',
+            'anotacao'          => 'Campo requirido',
+            'contato'           => 'Campo requirido',
+        ];
 
         $Contato = Contato::find($id);
         $Contato->pessoa_id = $request->pessoa_id;
@@ -142,9 +155,9 @@ class ContatoController extends Controller
      * @param  \App\contato  $contato
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Contato $Contato, $id)
+    public function destroy(Contato $Contato, Request $request)
     {
-
+        $id = $request['id'];
         $Contato = $Contato::find($id);
         $Contato -> delete();
 

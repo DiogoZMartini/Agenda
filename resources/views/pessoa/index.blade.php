@@ -50,7 +50,7 @@
         </table>
     </div>
     <!-- Modal -->
-        <form id="formExcluirPessoa" method="post" action="{{ route('pessoa.destroy', 'pessoa_id') }}">
+        <form id="formExcluirPessoa" method="post" action="{{ route('pessoa.destroy', 'id') }}">
             @method('DELETE')
             {{ csrf_field() }}
             <div class="modal fade " id="excluirModal" tabindex="-1" role="dialog" aria-labelledby="excluirModalLabel">
@@ -63,7 +63,7 @@
                     <div class="modal-body">
                         <p> Confirme a exclusão da pessoa ? </p>
                     </div>
-                    <input type="hidden" name="pessoa_id" id="pessoa_id" value="">
+                    <input type="hidden" name="id" id="id" value="">
                     <div class="modal-footer">
                     <button type="submit" class="btn btn-danger">Deletar</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>

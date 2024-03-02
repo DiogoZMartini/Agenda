@@ -197,9 +197,9 @@ class PessoaController extends Controller
      * @param  \App\Pessoa  $Pessoa
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Pessoa $Pessoa, Request $request, $id)
+    public function destroy(Pessoa $Pessoa, Request $request)
     {
-        $id = $request['pessoa_id'];
+        $id = $request['id'];
         $Pessoa = Pessoa::find($id);
         $Pessoa->relEndereco->delete();
         $Pessoa->delete();

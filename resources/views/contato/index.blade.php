@@ -40,7 +40,7 @@
                             </a>
                         </td>
                         <td>
-                            <a href="#" data-toggle="modal" data-target="#excluirModal{{ $Contato->id }}">
+                            <a href="#" data-id="{{ $Contato->id }}" data-toggle="modal" data-target="#excluirModal">
                                 <button type="button" class="btn glyphicon glyphicon-trash btn btn-danger"></button>
                             </a>
                         </td>
@@ -50,11 +50,10 @@
         </table>
     </div>
     <!-- Modal -->
-    @if($Pessoa->count() > 0)
-        <form id="deletarContato{{$Contato->id}}" method="post" action="{{ route('contato.destroy', $Contato->id) }}">
+        <form id="formExcluirPessoa" method="post" action="{{ route('pessoa.destroy', 'id') }}">
             @method('DELETE')
             {{ csrf_field() }}
-            <div class="modal fade " id="excluirModal{{ $Contato->id }}" tabindex="-1" role="dialog" aria-labelledby="excluirModalLabel">
+            <div class="modal fade " id="excluirModal" tabindex="-1" role="dialog" aria-labelledby="excluirModalLabel">
                 <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -62,8 +61,9 @@
                     <h4 class="modal-title" id="excluirModalLabel">Confirmação de exclusão</h4>
                     </div>
                     <div class="modal-body">
-                        <p> Confirme a exclusão da pessoa ? </p>
+                        <p> Confirme a exclusão do Contato ? </p>
                     </div>
+                    <input type="hidden" name="id" id="id" value="">
                     <div class="modal-footer">
                     <button type="submit" class="btn btn-danger">Deletar</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
@@ -72,5 +72,4 @@
                 </div>
             </div>
         </form>
-    @endif
 @endsection

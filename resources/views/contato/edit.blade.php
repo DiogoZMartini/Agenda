@@ -8,18 +8,18 @@
             <div class="form-group">
               <label for="contato" class="col-sm-2 control-label furmularioTexto">Contato</label>
               <div class="formularioImput">
-                <input type="text" class="form-control" id="contato" name="contato" value={{    $Contato->contato   }}>
+                <input type="text" class="form-control @error('contato') campoVermelho @enderror" id="contato" name="contato" value={{    $Contato->contato   }}>
               </div>
             </div>
             <div class="form-group">
-                <select name="pessoa_id"  id="pessoa_id" class="form-control seletor" required>
+                <select name="pessoa_id"  id="pessoa_id" class="form-control seletor @error('pessoa_id') campoVermelho @enderror" required>
                     <option value="{{ $Contato->contatoPessoa->id }}">{{ $Contato->contatoPessoa->nome }}</option>
                     @foreach($Pessoa as $P)
                         <option value="{{ $P->id }}">{{ $P->nome }}</option>
                     @endforeach
                 </select>
             <div class="form-group">           
-                <select name="tipo_contato_id"  id="tipo_contato_id" class="form-control seletor" required>
+                <select name="tipo_contato_id"  id="tipo_contato_id" class="form-control seletor @error('tipo_contato_id') campoVermelho @enderror" required>
                     <option value="{{ $Contato->contatoTipo->id }}">{{ $Contato->contatoTipo->tipo }}</option>
                     @foreach($TipoContato as $Tipo)
                         <option value="{{ $Tipo->id }}">{{ $Tipo->tipo }}</option>
@@ -29,7 +29,7 @@
             <div class="form-group">
               <label for="anotacao" class="col-sm-2 control-label furmularioTexto">Anotação</label>
               <div class="formularioImput">
-                <input type="text" class="form-control" id="anotacao" name="anotacao" value={{    $Contato->anotacao   }}>
+                <input type="text" class="form-control @error('anotacao') campoVermelho @enderror" id="anotacao" name="anotacao" value={{    $Contato->anotacao   }}>
               </div>
             </div>
             <div class="form-group">

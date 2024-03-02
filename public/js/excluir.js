@@ -4,7 +4,7 @@ $('#excluirModal').on('show.bs.modal', function(event){
     console.log(recipientId);
 
     var modal = $(this);
-    modal.find('#pessoa_id').val(recipientId);
+    modal.find('#id').val(recipientId);
 
 
 })
