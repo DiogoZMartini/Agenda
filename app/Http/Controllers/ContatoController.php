@@ -54,15 +54,7 @@ class ContatoController extends Controller
             'tipo_contato_id' => 'required',
             'anotacao' => 'nullable|string',
             'contato' => 'required|string',
-        ]);
-
-        $mensagens = [
-            'pessoa_id'         => 'Campo requirido',
-            'tipo_contato_id'   => 'Campo requirido',
-            'anotacao'          => 'Campo requirido',
-            'contato'           => 'Campo requirido',
-        ];
-        
+        ]);        
 
         $Contato = new Contato();
         $Contato->pessoa_id = $request->pessoa_id;
@@ -131,12 +123,6 @@ class ContatoController extends Controller
             'contato' => 'required',
         ]);
         
-        $mensagens = [
-            'pessoa_id'         => 'Campo requirido',
-            'tipo_contato_id'   => 'Campo requirido',
-            'anotacao'          => 'Campo requirido',
-            'contato'           => 'Campo requirido',
-        ];
 
         $Contato = Contato::find($id);
         $Contato->pessoa_id = $request->pessoa_id;

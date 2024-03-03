@@ -61,21 +61,7 @@ class PessoaController extends Controller
             'estado'        => 'required|string',
             'numero'        => 'required|numeric',
         ]);
-
-        $mensagens = [
-            'nome'          => 'Campo requirido',
-            'sobrenome'     => 'Campo requirido',
-            'sexo'          => 'Campo requirido',
-            'rua'           => 'Campo requirido',
-            'bairro'        => 'Campo requirido',
-            'cidade'        => 'Campo requirido',
-            'complemento'   => 'Campo requirido',
-            'estado'        => 'Campo requirido',
-            'numero'        => 'Campo requirido',
-        ];
-
         
-
         $Endereco = new Endereco();
         $Endereco->cep = $request->cep;
         $Endereco->rua = $request->rua;
