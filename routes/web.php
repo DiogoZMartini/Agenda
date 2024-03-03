@@ -1,10 +1,8 @@
 <?php
+use App\Http\Controllers\PessoaController;
 
 
-
-Route::get('/', function () {
-    view('welcome');
-});
+Route::get('/', [PessoaController::class, 'index']);
 
 Route::get('/dominiotipocontato', 'DominioTipoContatoController@index')->name('dominio.tipo.contato.index');
 Route::get('/dominiotipocontato/show/{id}', 'DominioTipoContatoController@show')->name('dominio.tipo.contato.show');
