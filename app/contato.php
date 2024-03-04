@@ -11,15 +11,13 @@ class Contato extends Model
 
     protected $table = 'contato';
 
-    protected $fillable = [
+    protected $filterable = [
         'id', 
-        'pessoa_id', 
-        'tipo_contato_id',
-        'anotação',
+        'pessoa_id',
         'contato'
     ];
 
-    public function contatoPessoa(){
+    public function relPessoa(){
         return $this->hasOne(Pessoa::class, 'id', 'pessoa_id');
     }
 
@@ -27,9 +25,10 @@ class Contato extends Model
         return $this->hasOne(DominioTipoContato::class, 'id', 'tipo_contato_id');
     }
 
-    public function setFilter(){
-        $this->filter->equal('id')
-        ->like('Contato')
-        ->equal('pessoa_id');
+    public function setFilter()
+    {
+        $this->equal('pessoa_id', 'ID da Pessoa')
+            ->like('Contato')
+            ->relation('relPessoa', 'nome', 'like', '%?%');
     }
 }

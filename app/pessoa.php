@@ -23,8 +23,8 @@ class Pessoa extends Model
         return $this->hasOne(Endereco::class, 'id', 'endereco_id');
     }
 
-    public function pessoaContato(){
-        return $this->hasMany(Contato::class,'pessoa_id');
+    public function relContato(){
+        return $this->hasMany(Contato::class, 'pessoa_id', 'id');
     }
 
     public function setFilter(){

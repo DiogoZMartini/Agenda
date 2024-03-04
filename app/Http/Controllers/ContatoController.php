@@ -6,10 +6,12 @@ use Illuminate\Http\Request;
 use App\Contato;
 use App\DominioTipoContato;
 use App\Pessoa;
+use Aginev\SearchFilters\Filterable;
 
 
 class ContatoController extends Controller
 {
+    use Filterable;
     /**
      * Display a listing of the resource.
      *
@@ -17,26 +19,20 @@ class ContatoController extends Controller
      */
     public function index(Request $request)
     {
-        $filtro = array_filter($request->only(['contato', 'pessoa']));
+        // Obtém os contatos filtrados com base nas regras definidas em setFilter
+        $contatos = ContatoController::filter($request->all())->get();
 
-        $contatos = Contato::when($filtro, function ($query) use ($filtro) {
-            if (isset($filtro['pessoa'])) {
-                $query->whereHas('contatoPessoa', function ($subquery) use ($filtro) {
-                    $subquery->where('nome', 'like', '%' . $filtro['pessoa'] . '%');
-                });
-            }
+        // Carrega as relações 'relPessoa' para cada contato
+        $contatos->load('relPessoa');
 
-            if (isset($filtro['contato'])) {
-                $query->where('contato', 'like', '%' . $filtro['contato'] . '%');
-            }
-        })->get();
-    
-        $pessoas = Pessoa::whereIn('id', $contatos->pluck('pessoa_id'))->get();
-    
-        return view('contato.index', [
+        // Obtém as pessoas associadas aos contatos
+        $pessoas = $contatos->pluck('relPessoa');
+
+        // Retorna a view com os resultados
+        return view('pessoa.index', [
             'Contatos' => $contatos,
             'Pessoas' => $pessoas,
-            'filtro' => $filtro,
+            'filtro' => $request->all(), // Se desejar passar o filtro de volta para a view
         ]);
     }
 
