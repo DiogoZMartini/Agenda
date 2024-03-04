@@ -14,15 +14,18 @@ class PessoaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-                      
-        return view('pessoa.index', [
+        $filtro = array_filter($request->only(['nome', 'sobrenome']));
 
-            'Pessoas' => Pessoa::get(),
+        $pessoas = Pessoa::when($filtro, function ($query) use ($filtro) {
+            $query->where($filtro);
+        })->get();
         
+        return view('pessoa.index', [
+            'Pessoas' => $pessoas,
+            'filtro' => $filtro,
         ]);
-
     }
 
     /**

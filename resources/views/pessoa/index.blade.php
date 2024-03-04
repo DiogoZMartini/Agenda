@@ -10,7 +10,17 @@
                 <button class="cadastrar btn btn-primary btn-sm">Cadastrar</button>
             </a>
         </div>
-
+        <form method="get" action="{{ route('pessoa.index') }}" class="form-inline">
+            <div class="form-group">
+                <label for="nome" class="sr-only">Nome:</label>
+                <input type="text" class="form-control" name="nome" value="{{ $filtro['nome'] ?? '' }}" placeholder="Nome">
+            </div>
+            <div class="form-group">
+                <label class="sr-only" for="sobrenome">Sobrenome:</label>
+                <input type="text" class="form-control" name="sobrenome" value="{{ $filtro['sobrenome'] ?? '' }}" placeholder="Sobrenome">
+            </div>
+            <button type="submit" class="btn glyphicon glyphicon-search btn btn-info btnFiltro"></button>
+        </form>
         <table class="table table-striped">
             <thead>
                 <tr>
