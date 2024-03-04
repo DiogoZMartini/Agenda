@@ -15,14 +15,29 @@ class ContatoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-       
+        $filtro = array_filter($request->only(['contato', 'pessoa']));
+
+        $contatos = Contato::when($filtro, function ($query) use ($filtro) {
+            if (isset($filtro['pessoa'])) {
+                $query->whereHas('contatoPessoa', function ($subquery) use ($filtro) {
+                    $subquery->where('nome', 'like', '%' . $filtro['pessoa'] . '%');
+                });
+            }
+
+            if (isset($filtro['contato'])) {
+                $query->where('contato', 'like', '%' . $filtro['contato'] . '%');
+            }
+        })->get();
+    
+        $pessoas = Pessoa::whereIn('id', $contatos->pluck('pessoa_id'))->get();
+    
         return view('contato.index', [
-            'Contato' => Contato::get(),
-            
-            
-        ]); //array assossiativo
+            'Contatos' => $contatos,
+            'Pessoas' => $pessoas,
+            'filtro' => $filtro,
+        ]);
     }
 
     /**

@@ -28,6 +28,8 @@ class Contato extends Model
     }
 
     public function setFilter(){
-        $this->filter->equal('id_contato');
+        $this->filter->equal('id')
+        ->like('Contato')
+        ->equal('pessoa_id');
     }
 }

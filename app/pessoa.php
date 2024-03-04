@@ -28,9 +28,8 @@ class Pessoa extends Model
     }
 
     public function setFilter(){
-        $this->filter->equal('id_pessoa')
+        $this->filter->equal('id')
         ->like('nome')
-        ->like('sobrenome')
-        ->equal('sexo');
+        ->like('sobrenome');
     }
 }
