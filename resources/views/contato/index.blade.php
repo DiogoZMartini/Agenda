@@ -36,7 +36,7 @@
                     <tr>
                         <td>{{ $Contato->id }}</td>
                         <td>{{ $Contato->contato }}</td>
-                        <td>{{ $Contato->contatoPessoa->nome }}</td>
+                        <td>{{ $Contato->relPessoa->nome }}</td>
                         <td>{{ $Contato->contatoTipo->tipo }}</td>
                         <td>{{ $Contato->anotacao }}</td>
                         <td>

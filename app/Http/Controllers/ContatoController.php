@@ -6,12 +6,10 @@ use Illuminate\Http\Request;
 use App\Contato;
 use App\DominioTipoContato;
 use App\Pessoa;
-use Aginev\SearchFilters\Filterable;
 
 
 class ContatoController extends Controller
 {
-    use Filterable;
     /**
      * Display a listing of the resource.
      *
@@ -84,7 +82,7 @@ class ContatoController extends Controller
      * @param  \App\contato  $contato
      * @return \Illuminate\Http\Response
      */
-    public function show(Contato $Contato, $id)
+    public function show($id)
     {
 
         $Contato = Contato::find($id);
@@ -104,8 +102,9 @@ class ContatoController extends Controller
      * @param  \App\contato  $contato
      * @return \Illuminate\Http\Response
      */
-    public function edit(Contato $Contato)
+    public function edit($id)
     {
+        $Contato = Contato::find($id);
 
         return view('contato.edit', [
 
@@ -124,7 +123,7 @@ class ContatoController extends Controller
      * @param  \App\contato  $contato
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, contato $contato, $id)
+    public function update(Request $request, $id)
     {
         
         $request->validate([

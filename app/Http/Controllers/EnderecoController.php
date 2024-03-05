@@ -88,11 +88,11 @@ class EnderecoController extends Controller
      * @param  \App\endereco  $endereco
      * @return \Illuminate\Http\Response
      */
-    public function edit(Endereco $Endereco)
+    public function edit($id)
     {
-        
+        $Endereco = Endereco::find($id);
         return view('endereco.edit', [
-
+            
             'Endereco' => $Endereco,    
 
         ]);
@@ -106,7 +106,7 @@ class EnderecoController extends Controller
      * @param  \App\endereco  $endereco
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Endereco $End, $id)
+    public function update(Request $request, $id)
     {
     
         $request->validate([

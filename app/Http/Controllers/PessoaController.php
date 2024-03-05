@@ -65,22 +65,21 @@ class PessoaController extends Controller
             'numero'        => 'required|numeric',
         ]);
         
-        $Endereco = new Endereco();
-        $Endereco->cep = $request->cep;
-        $Endereco->rua = $request->rua;
-        $Endereco->bairro = $request->bairro;
-        $Endereco->cidade = $request->cidade;
-        $Endereco->complemento = $request->complemento;
-        $Endereco->estado = $request->estado;
-        $Endereco->numero = $request->numero;
-        $Endereco->save();
-
         $Pessoa = new Pessoa();
         $Pessoa->nome = $request->nome;
         $Pessoa->sobrenome = $request->sobrenome;
-        $Pessoa->endereco_id = $Endereco->id;
         $Pessoa->sexo = $request->sexo;
         $Pessoa->save();
+
+        $Pessoa->relEndereco()->create([
+            'cep'             => $request->cep,
+            'rua'             => $request->rua,
+            'bairro'          => $request->bairro,
+            'cidade'          => $request->cidade,
+            'complemento'     => $request->complemento,
+            'estado'          => $request->estado,
+            'numero'          => $request->numero,
+        ]);
         
         return redirect()->route('pessoa.index');
 
@@ -92,7 +91,7 @@ class PessoaController extends Controller
      * @param  \App\Pessoa  $Pessoa
      * @return \Illuminate\Http\Response
      */
-    public function show(Pessoa $Pessoa, $id)
+    public function show($id)
     {
 
         $Pessoa = Pessoa::find($id);
@@ -112,8 +111,9 @@ class PessoaController extends Controller
      * @param  \App\Pessoa  $Pessoa
      * @return \Illuminate\Http\Response
      */
-    public function edit(Pessoa $Pessoa)
+    public function edit($id)
     {
+        $Pessoa = Pessoa::find($id);
         $End = Endereco::find($Pessoa->endereco_id);
         return view('pessoa.edit', [
 
@@ -131,7 +131,7 @@ class PessoaController extends Controller
      * @param  \App\Pessoa  $Pessoa
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Pessoa $P, $id)
+    public function update(Request $request, $id)
     {
         $request->validate([
             'nome'          => 'required|string',
@@ -152,16 +152,16 @@ class PessoaController extends Controller
         $P->sexo = $request->sexo;
         $P->save();
 
-        $End = Endereco::find($P->endereco_id);
-        $End->cep = $request->cep;
-        $End->rua = $request->rua;
-        $End->bairro = $request->bairro;
-        $End->cidade = $request->cidade;
-        $End->complemento = $request->complemento;
-        $End->estado = $request->estado;
-        $End->numero = $request->numero;
-        $End->save();
-        
+        $P->relEndereco()->update([
+            'cep'           => $request->cep,
+            'rua'           => $request->rua,
+            'bairro'        => $request->bairro,
+            'cidade'        => $request->cidade,
+            'complemento'   => $request->complemento,
+            'estado'        => $request->estado,
+            'numero'        => $request->numero
+        ]);
+
         return redirect()->route('pessoa.index');
 
     }

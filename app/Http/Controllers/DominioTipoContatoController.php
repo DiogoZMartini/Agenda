@@ -66,7 +66,7 @@ class DominioTipoContatoController extends Controller
      * @param  \App\tipo_contato  $tipo_contato
      * @return \Illuminate\Http\Response
      */
-    public function show(DominioTipoContato $DominioTipoContato, $id)
+    public function show($id)
     {
         $DominioTipoContato = DominioTipoContato::find($id);
         return view('dominio_tipo_contato.show', [
@@ -82,12 +82,13 @@ class DominioTipoContatoController extends Controller
      * @param  \App\tipo_contato  $tipo_contato
      * @return \Illuminate\Http\Response
      */
-    public function edit(DominioTipoContato $DominioTipoContato)
+    public function edit($id)
     {
+        $Dominio = DominioTipoContato::find($id);
 
         return view('dominio_tipo_contato.edit', [
 
-            'DominioTipoContato' => $DominioTipoContato,    
+            'DominioTipoContato' => $Dominio,    
 
         ]);
     }
@@ -99,7 +100,7 @@ class DominioTipoContatoController extends Controller
      * @param  \App\tipo_contato  $tipo_contato
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, DominioTipoContato $Dominio, $id)
+    public function update(Request $request, $id)
     {
 
         $request->validate([
