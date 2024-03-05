@@ -17,20 +17,18 @@ class ContatoController extends Controller
      */
     public function index(Request $request)
     {
-        // Obtém os contatos filtrados com base nas regras definidas em setFilter
+
         $contatos = ContatoController::filter($request->all())->get();
 
-        // Carrega as relações 'relPessoa' para cada contato
         $contatos->load('relPessoa');
 
-        // Obtém as pessoas associadas aos contatos
         $pessoas = $contatos->pluck('relPessoa');
 
-        // Retorna a view com os resultados
+
         return view('pessoa.index', [
             'Contatos' => $contatos,
             'Pessoas' => $pessoas,
-            'filtro' => $request->all(), // Se desejar passar o filtro de volta para a view
+            'filtro' => $request->all(),
         ]);
     }
 

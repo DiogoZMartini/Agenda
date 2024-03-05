@@ -15,6 +15,7 @@ class DropForeignKeyPessoa extends Migration
     {
         Schema::table('pessoa', function (Blueprint $table) {
             $table->dropForeign(['endereco']);
+            $table->dropColumn('endereco');
         });
     }
 
