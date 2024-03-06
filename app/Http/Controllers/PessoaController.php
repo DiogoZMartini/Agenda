@@ -16,17 +16,15 @@ class PessoaController extends Controller
      */
     public function index(Request $request)
     {
-        $contatos = ContatoController::filter($request->all())->get();
+        $filtro = array_filter($request->only(['nome', 'sobrenome']));
 
-        $contatos->load('relPessoa');
-
-        $pessoas = $contatos->pluck('relPessoa');
-
-
+        $pessoas = Pessoa::when($filtro, function ($query) use ($filtro) {
+            $query->where($filtro);
+        })->get();
+        
         return view('pessoa.index', [
-            'Contatos' => $contatos,
             'Pessoas' => $pessoas,
-            'filtro' => $request->all(),
+            'filtro' => $filtro,
         ]);
     }
 
