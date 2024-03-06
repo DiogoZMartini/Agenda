@@ -16,6 +16,6 @@ class PopularEndereco extends Seeder
         ->join('pessoa', function ($join) {
             $join->on('pessoa.id_endereco', '=', 'endereco.id');
         })
-        ->update(['endereco.pessoa_id' => DB::raw('pessoa.id_pessoa')]);
+        ->update(['endereco.pessoa_id' => DB::raw('pessoa.id')]);
     }
 }

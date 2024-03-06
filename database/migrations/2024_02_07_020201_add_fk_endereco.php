@@ -14,7 +14,7 @@ class AddFkEndereco extends Migration
     public function up()
     {
         Schema::table('endereco', function (Blueprint $table) {          
-            $table->foreign('pessoa_id')->references('id_pessoa')->on('pessoa')->onDelete('CASCADE')->onUpdate("CASCADE");          
+            $table->foreign('pessoa_id')->references('id')->on('pessoa')->onDelete('CASCADE')->onUpdate("CASCADE");          
         });
     }
 
