@@ -17,12 +17,14 @@ class Endereco extends Model
         'rua',
         'bairro', 
         'cidade', 
-        'complemento'
+        'complemento',
+        'estado',
+        'numero',
+        'pessoa_id',
     ];
 
-
-    public function pessoaEndereco(){
-        return $this->hasOne(Pessoa::class, 'endereco_id');
+    public function relPessoa(){
+        return $this->hasOne(Pessoa::class, 'id', 'pessoa_id');
     }
 
     public function setFilter(){

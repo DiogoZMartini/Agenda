@@ -37,7 +37,6 @@
                         <td>{{ $Pessoa->id }}</td>
                         <td>{{ $Pessoa->nome }}</td>
                         <td>{{ $Pessoa->sobrenome }}</td>
-                        <td>{{ $Pessoa->endereco_id }}</td>
                         <td>{{ $Pessoa->sexo }}</td>
                         <td>
                             <a href="{{ route('pessoa.show', ['id' => $Pessoa])}}"  >

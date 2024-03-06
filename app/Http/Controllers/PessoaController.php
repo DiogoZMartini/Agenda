@@ -16,15 +16,17 @@ class PessoaController extends Controller
      */
     public function index(Request $request)
     {
-        $filtro = array_filter($request->only(['nome', 'sobrenome']));
+        $contatos = ContatoController::filter($request->all())->get();
 
-        $pessoas = Pessoa::when($filtro, function ($query) use ($filtro) {
-            $query->where($filtro);
-        })->get();
-        
+        $contatos->load('relPessoa');
+
+        $pessoas = $contatos->pluck('relPessoa');
+
+
         return view('pessoa.index', [
+            'Contatos' => $contatos,
             'Pessoas' => $pessoas,
-            'filtro' => $filtro,
+            'filtro' => $request->all(),
         ]);
     }
 
@@ -79,6 +81,7 @@ class PessoaController extends Controller
             'complemento'     => $request->complemento,
             'estado'          => $request->estado,
             'numero'          => $request->numero,
+            'pessoa_id'       => $Pessoa->id,
         ]);
         
         return redirect()->route('pessoa.index');
@@ -172,7 +175,7 @@ class PessoaController extends Controller
      * @param  \App\Pessoa  $Pessoa
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Pessoa $Pessoa, Request $request)
+    public function destroy(Request $request)
     {
         $id = $request['id'];
         $Pessoa = Pessoa::find($id);

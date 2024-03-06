@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class DropForeignKeyPessoa extends Migration
+class AddPessoaIdEndereco extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,8 @@ class DropForeignKeyPessoa extends Migration
      */
     public function up()
     {
-        Schema::table('pessoa', function (Blueprint $table) {
-            $table->dropForeign(['endereco']);
-            $table->dropColumn('id_endereco');
+        Schema::table('endereco', function (Blueprint $table) {
+            $table->integer('pessoa_id')->unsigned();
         });
     }
 

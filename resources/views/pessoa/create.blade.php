@@ -23,7 +23,7 @@
                 </div>
             </div>
             <div class="form-group">
-                <select name="sexo"  id="sexo" class="form-control seletorPessoa @error('sobrenome') campoVermelho @enderror" required>
+                <select name="sexo"  id="sexo" class="form-control seletorPessoa @error('sexo') campoVermelho @enderror" required>
                     <option >Selecione</option>
                         <option value="M" @if(old('sexo') == 'M') selected @endif>Masculino</option>
                         <option value="F" @if(old('sexo') == 'F') selected @endif>Feminino</option> 

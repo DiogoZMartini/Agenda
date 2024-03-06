@@ -12,15 +12,10 @@ class PopularEndereco extends Seeder
      */
     public function run()
     {
-
-        $dadosOrigem = DB::table('pessoa')->select('id')->get();
-
-
-        foreach ($dadosOrigem as $dado) {
-            DB::table('endereco')->insert([
-                'pessoa_id' => $dado->id,
-
-            ]);
-        }
+        DB::table('endereco')
+        ->join('pessoa', function ($join) {
+            $join->on('pessoa.id_endereco', '=', 'endereco.id');
+        })
+        ->update(['endereco.pessoa_id' => DB::raw('pessoa.id_pessoa')]);
     }
 }

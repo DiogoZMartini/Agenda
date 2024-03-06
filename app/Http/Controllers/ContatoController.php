@@ -17,18 +17,26 @@ class ContatoController extends Controller
      */
     public function index(Request $request)
     {
+        $filtro = array_filter($request->only(['contato', 'pessoa']));
 
-        $contatos = ContatoController::filter($request->all())->get();
+        $contatos = Contato::when($filtro, function ($query) use ($filtro) {
+            if (isset($filtro['pessoa'])) {
+                $query->whereHas('relPessoa', function ($subquery) use ($filtro) {
+                    $subquery->where('nome', 'like', '%' . $filtro['pessoa'] . '%');
+                });
+            }
 
-        $contatos->load('relPessoa');
-
-        $pessoas = $contatos->pluck('relPessoa');
-
-
-        return view('pessoa.index', [
+            if (isset($filtro['contato'])) {
+                $query->where('contato', 'like', '%' . $filtro['contato'] . '%');
+            }
+        })->get();
+    
+        $pessoas = Pessoa::whereIn('id', $contatos->pluck('pessoa_id'))->get();
+    
+        return view('contato.index', [
             'Contatos' => $contatos,
             'Pessoas' => $pessoas,
-            'filtro' => $request->all(),
+            'filtro' => $filtro,
         ]);
     }
 

@@ -15,6 +15,7 @@ class AlterarAtributosPessoaTable extends Migration
     {
         Schema::table('pessoa', function (Blueprint $table) {
             $table->renameColumn('id_pessoa', 'id');
+            $table->renameColumn('endereco', 'id_endereco');
         });
     }
 

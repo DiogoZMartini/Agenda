@@ -13,14 +13,13 @@ class Pessoa extends Model
 
     protected $fillable = [
         'id',
-        'endereco_id',
         'nome', 
         'sobrenome', 
         'sexo'
     ];
 
     public function relEndereco(){
-        return $this->hasOne(Endereco::class, 'id', 'endereco_id');
+        return $this->hasOne(Endereco::class, 'pessoa_id');
     }
 
     public function relContato(){
