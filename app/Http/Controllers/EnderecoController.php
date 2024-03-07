@@ -42,12 +42,13 @@ class EnderecoController extends Controller
     {
 
         $request->validate([
-            'cep' => 'required',
-            'rua' => 'required',
-            'bairro' => 'required',
-            'cidade' => 'required',
-            'complemento' => 'required',
-            'estado' => 'required',
+            'cep'           => ['required', new CepValidacao],
+            'rua'           => 'required|string',
+            'bairro'        => 'required|string',
+            'cidade'        => 'required|string',
+            'complemento'   => 'nullable|string',
+            'estado'        => 'required|string',
+            'numero'        => 'required|integer',
         ]);
         
 

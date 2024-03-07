@@ -15,12 +15,14 @@ class TabelaContatos extends Migration
     {
         Schema::create('contato', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->integer('pessoa_fk')->unsigned();
             $table->unsignedBigInteger('tipo_contato_fk');
             $table->string('anotacao')->nullable();
             $table->string('contato', 60);
 
             $table->foreign('tipo_contato_fk')->references('id')->on('tipo_contato')->onDelete('CASCADE')->onUpdate("CASCADE");
-
+            $table->foreign('pessoa_fk')->references('id')->on('pessoa')->onDelete('CASCADE')->onUpdate("CASCADE");
+ 
             $table->timestamps();
         });
     }

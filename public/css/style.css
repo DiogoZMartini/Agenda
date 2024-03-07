@@ -57,10 +57,15 @@
 }
 
 .formulario{
-    padding: 3em;
+    padding-left: 1em;
+    padding-right: 1em;
     display: block;
     margin-left: auto;
     margin-right: auto;
+}
+
+.formularioEdit{
+    padding-top: 13em;
 }
 
 .furmularioTexto{
@@ -88,13 +93,8 @@
     padding: 2em;
 }
 
-.pessoa{
-    padding: 2em;
-    margin-bottom: 5em;
-}
-
-.endereco{
-    padding: 2em;
+.camposFormularios{
+    padding: 0.5em;
 }
 
 .campoEndereco{

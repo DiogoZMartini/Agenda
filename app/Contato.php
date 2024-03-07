@@ -16,8 +16,15 @@ class Contato extends Model
         'contato'
     ];
 
+    protected $fillable = [
+        'pessoa_fk',
+        'tipo_contato_fk',
+        'anotacao',
+        'contato',
+    ];
+
     public function relPessoa(){
-        return $this->hasMany(Pessoa::class, 'contato_fk', 'id');
+        return $this->hasOne(Pessoa::class, 'id', 'pessoa_fk');
     }
 
     public function relDominioTipoContato(){

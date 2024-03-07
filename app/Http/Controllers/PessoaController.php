@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Pessoa;
 use App\Endereco;
 use App\Contato;
+use App\DominioTipoContato;
 use Illuminate\Http\Request;
 use App\Rules\CepValidacao;
 
@@ -18,17 +19,15 @@ class PessoaController extends Controller
     public function index(Request $request)
     {
 
-        $contatos = Contato::filter($request->all())->get();
+        $filtro = array_filter($request->only(['nome', 'sobrenome']));
 
-        $contatos->load('relPessoa');
-
-        $pessoas = $contatos->pluck('relPessoa');
-
+        $pessoas = Pessoa::when($filtro, function ($query) use ($filtro) {
+            $query->where($filtro);
+        })->get();
 
         return view('pessoa.index', [
-            'Contatos' => $contatos,
             'Pessoas' => $pessoas,
-            'filtro' => $request->all(),
+            'filtro' => $filtro,
         ]);
 
     }
@@ -42,8 +41,10 @@ class PessoaController extends Controller
     {
 
         return view('pessoa.create', [
-            'Pessoa' => Pessoa::get(),
-            'Endereco' => Endereco::get(),
+            'Pessoas' => Pessoa::get(),
+            'Enderecos' => Endereco::get(),
+            'Contatos' => Contato::get(),
+            'TipoContatos' => DominioTipoContato::get(),
         ]);
 
     }
@@ -58,16 +59,19 @@ class PessoaController extends Controller
     {
 
         $request->validate([
-            'nome'          => 'required|string',
-            'sobrenome'     => 'required|string',
-            'sexo'          => 'required|in:M,F',
-            'cep'           => ['required', new CepValidacao],
-            'rua'           => 'required|string',
-            'bairro'        => 'required|string',
-            'cidade'        => 'required|string',
-            'complemento'   => 'nullable|string',
-            'estado'        => 'required|string',
-            'numero'        => 'required|numeric',
+            'nome'              => 'required|string',
+            'sobrenome'         => 'required|string',
+            'sexo'              => 'required|in:Masculino,Femenino',
+            'cep'               => ['required', new CepValidacao],
+            'rua'               => 'required|string',
+            'bairro'            => 'required|string',
+            'cidade'            => 'required|string',
+            'complemento'       => 'nullable|string',
+            'estado'            => 'required|string',
+            'numero'            => 'required|numeric',
+            'tipo_contato_id'   => 'required',
+            'anotacao'          => 'nullable|string',
+            'contato'           => 'required|string',
         ]);
         
         $Pessoa = new Pessoa();
@@ -85,6 +89,13 @@ class PessoaController extends Controller
             'estado'          => $request->estado,
             'numero'          => $request->numero,
             'pessoa_fk'       => $Pessoa->id,
+        ]);
+
+        $Pessoa->relContato()->create([
+            'pessoa_fk'         => $Pessoa->id,
+            'tipo_contato_fk'   => $request->tipo_contato_id,
+            'anotacao'          => $request->anotacao,
+            'contato'           => $request->contato,
         ]);
         
         return redirect()->route('pessoa.index');
@@ -119,12 +130,10 @@ class PessoaController extends Controller
      */
     public function edit($id)
     {
-        $Pessoa = Pessoa::find($id);
-        $End = Endereco::find($Pessoa->endereco_id);
+
         return view('pessoa.edit', [
 
-            'Pessoa' => $Pessoa,
-            'Endereco' =>  $End, 
+            'Pessoa' => Pessoa::find($id),
 
         ]);
 
@@ -140,33 +149,18 @@ class PessoaController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
+
             'nome'          => 'required|string',
             'sobrenome'     => 'required|string',
             'sexo'          => 'required',
-            'cep'           => ['required', new CepValidacao],
-            'rua'           => 'required|string',
-            'bairro'        => 'required|string',
-            'cidade'        => 'required|string',
-            'complemento'   => 'nullable|string',
-            'estado'        => 'required|string',
-            'numero'        => 'required|integer',
+
         ]);
 
-        $P = Pessoa::find($id);
-        $P->nome = $request->nome;
-        $P->sobrenome = $request->sobrenome;
-        $P->sexo = $request->sexo;
-        $P->save();
-
-        $P->relEndereco()->update([
-            'cep'           => $request->cep,
-            'rua'           => $request->rua,
-            'bairro'        => $request->bairro,
-            'cidade'        => $request->cidade,
-            'complemento'   => $request->complemento,
-            'estado'        => $request->estado,
-            'numero'        => $request->numero
-        ]);
+        $Pessoa = Pessoa::find($id);
+        $Pessoa->nome = $request->nome;
+        $Pessoa->sobrenome = $request->sobrenome;
+        $Pessoa->sexo = $request->sexo;
+        $Pessoa->save();
 
         return redirect()->route('pessoa.index');
 

@@ -36,7 +36,7 @@ class Pessoa extends Model
     }
 
     public function relContato(){
-        return $this->hasOne(Contato::class, 'id', 'contato_fk');
+        return $this->hasMany(Contato::class, 'pessoa_fk', 'id');
     }
 
     public function setFilter(){
