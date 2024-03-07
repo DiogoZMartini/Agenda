@@ -79,7 +79,7 @@ class PessoaController extends Controller
             'complemento'     => $request->complemento,
             'estado'          => $request->estado,
             'numero'          => $request->numero,
-            'pessoa_id'       => $Pessoa->id,
+            'pessoa_fk'       => $Pessoa->id,
         ]);
         
         return redirect()->route('pessoa.index');
@@ -177,7 +177,6 @@ class PessoaController extends Controller
     {
         $id = $request['id'];
         $Pessoa = Pessoa::find($id);
-        $Pessoa->relEndereco->delete();
         $Pessoa->delete();
         return back();
     }

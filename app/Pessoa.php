@@ -18,12 +18,25 @@ class Pessoa extends Model
         'sexo'
     ];
 
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function ($pessoa) {
+            if ($pessoa->relEndereco) {
+                $pessoa->relEndereco->delete();
+            }
+        });
+    }
+
+
     public function relEndereco(){
-        return $this->hasOne(Endereco::class, 'pessoa_id');
+        return $this->hasOne(Endereco::class, 'pessoa_fk' , 'id');
     }
 
     public function relContato(){
-        return $this->hasMany(Contato::class, 'pessoa_id', 'id');
+        return $this->hasOne(Contato::class, 'id', 'contato_fk');
     }
 
     public function setFilter(){

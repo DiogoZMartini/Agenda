@@ -15,7 +15,7 @@ class TabelaTipoContato extends Migration
     public function up()
     {
         Schema::create('tipo_contato', function (Blueprint $table) {
-            $table->bigIncrements('id_tipo_contato');
+            $table->bigIncrements('id');
             $table->string('tipo')->unique();
             $table->text('descricao')->nullable();
             $table->timestamps();

@@ -12,16 +12,15 @@ class Contato extends Model
     protected $table = 'contato';
 
     protected $filterable = [
-        'id', 
-        'pessoa_id',
+        'id',
         'contato'
     ];
 
     public function relPessoa(){
-        return $this->hasOne(Pessoa::class, 'id', 'pessoa_id');
+        return $this->hasMany(Pessoa::class, 'contato_fk', 'id');
     }
 
-    public function contatoTipo(){
+    public function relDominioTipoContato(){
         return $this->hasOne(DominioTipoContato::class, 'id', 'tipo_contato_id');
     }
 
