@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Pessoa;
 use App\Endereco;
+use App\Contato;
 use Illuminate\Http\Request;
 use App\Rules\CepValidacao;
 
@@ -16,16 +17,20 @@ class PessoaController extends Controller
      */
     public function index(Request $request)
     {
-        $filtro = array_filter($request->only(['nome', 'sobrenome']));
 
-        $pessoas = Pessoa::when($filtro, function ($query) use ($filtro) {
-            $query->where($filtro);
-        })->get();
-        
+        $contatos = Contato::filter($request->all())->get();
+
+        $contatos->load('relPessoa');
+
+        $pessoas = $contatos->pluck('relPessoa');
+
+
         return view('pessoa.index', [
+            'Contatos' => $contatos,
             'Pessoas' => $pessoas,
-            'filtro' => $filtro,
+            'filtro' => $request->all(),
         ]);
+
     }
 
     /**
