@@ -14,7 +14,7 @@ class TabelaPessoas extends Migration
     public function up()
     {
         Schema::create('pessoa', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->Increments('id');
             $table->unsignedBigInteger('contato_fk');
             $table->string('nome', 20);
             $table->string('sobrenome', 50);

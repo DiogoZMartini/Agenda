@@ -15,7 +15,7 @@ class TabelaEnderecos extends Migration
     {
         Schema::create('endereco', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('pessoa_fk');
+            $table->integer('pessoa_fk')->unsigned();
             $table->integer('cep');
             $table->string('rua', 60);
             $table->string('bairro', 60);
@@ -25,9 +25,9 @@ class TabelaEnderecos extends Migration
             $table->string('estado', 50);
             $table->timestamps();
 
-
-            $table->foreign('pessoa_fk')->references('id')->on('pessoa')->onDelete('CASCADE')->onUpdate("CASCADE");      
-        });
+            $table->foreign('pessoa_fk')->references('id')->on('pessoa')->onDelete('CASCADE')->onUpdate("CASCADE");
+ 
+          });
     }
 
     /**
