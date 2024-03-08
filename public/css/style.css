@@ -28,8 +28,9 @@
     width: 20%;
     margin-left: -1.2em;
     height: 100%;
-    padding: 1em;
+    padding: 0.5em;
 }
+
 
 .tabela{
     display: flex;
@@ -52,10 +53,8 @@
 
 .opcoes{
     background-color: black;
-    text-decoration-color: white;
     margin-bottom: -0.2em;
 }
-
 
 .formulario{
     padding-left: 1em;
