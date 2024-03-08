@@ -119,16 +119,16 @@ class EnderecoController extends Controller
             'estado' => 'required',
         ]);
 
-        $End = Endereco::find($id);
-        $End->cep = $request->cep;
-        $End->rua = $request->rua;
-        $End->bairro = $request->bairro;
-        $End->cidade = $request->cidade;
-        $End->complemento = $request->complemento;
-        $End->estado = $request->estado;
-        $End->save();
+        $Endereco = Endereco::find($id);
+        $Endereco->cep = $request->cep;
+        $Endereco->rua = $request->rua;
+        $Endereco->bairro = $request->bairro;
+        $Endereco->cidade = $request->cidade;
+        $Endereco->complemento = $request->complemento;
+        $Endereco->estado = $request->estado;
+        $Endereco->save();
         
-        return redirect()->route('endereco.index');
+        return redirect()->route('pessoa.show', $Endereco->pessoa_fk);
 
     }
 

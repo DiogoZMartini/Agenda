@@ -24,11 +24,15 @@
 
 .menu{
     flex-direction: column;
-    background-color: gray;
     justify-content: flex-start;
     width: 20%;
     margin-left: -1.2em;
     height: 100%;
+    padding: 1em;
+}
+
+.menu:hover{
+    background-color: black !important;
 }
 
 .tabela{
@@ -56,6 +60,7 @@
     margin-bottom: -0.2em;
 }
 
+
 .formulario{
     padding-left: 1em;
     padding-right: 1em;
@@ -70,10 +75,11 @@
 
 .furmularioTexto{
     padding: 0em;
+    padding-left: 1.1em;
 }
 
 .seletorContato{
-    margin-top: 1.4em;
+    margin-top: 1.3em;
     margin-left: 1.5em;
 }
 
@@ -109,4 +115,19 @@
 .btnFiltro{
     margin-bottom: 0.3em;
     margin-left: 1em;
+}
+
+.furmularioTextoShow{
+    padding-left: 5em;
+
+}
+
+.formularioImputShow{
+    width: 20%;
+    margin-left: 5em;
+}
+
+.formularioImputAnotacao{
+    padding: 1em;
+    margin-left: 4em;
 }

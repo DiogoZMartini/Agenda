@@ -67,7 +67,7 @@ class ContatoController extends Controller
         $Contato->contato = $request->contato;
         $Contato->save();
         
-        return redirect()->route('pessoa.index');
+        return redirect()->route('pessoa.show', $Contato->pessoa_fk);
 
     }
 
@@ -81,11 +81,11 @@ class ContatoController extends Controller
     {
 
         $Contato = Contato::find($id);
-        $Tipo = DominioTipoContato::find($Contato->tipo_contato_id);
+        $TipoContatos = DominioTipoContato::find($Contato->tipo_contato_fk);
         return view('contato.show', [
 
             'Contato' => $Contato,
-            'TipoContato' => $Tipo, 
+            'TipoContatos' => $TipoContatos, 
         
         ]);
 
@@ -103,9 +103,8 @@ class ContatoController extends Controller
 
         return view('contato.edit', [
 
-            'Contato' => $Contato,
-            'Pessoa' => Pessoa::get(),            
-            'TipoContato' => DominioTipoContato::get(), 
+            'Contato' => $Contato,           
+            'TipoContatos' => DominioTipoContato::get(), 
 
         ]);
 
@@ -122,16 +121,14 @@ class ContatoController extends Controller
     {
         
         $request->validate([
-            'pessoa_id' => 'required',
-            'tipo_contato_id' => 'required',
+            'tipo_contato_fk' => 'required',
             'anotacao' => 'required',
             'contato' => 'required',
         ]);
         
 
         $Contato = Contato::find($id);
-        $Contato->pessoa_id = $request->pessoa_id;
-        $Contato->tipo_contato_id = $request->tipo_contato_id;
+        $Contato->tipo_contato_fk = $request->tipo_contato_fk;
         $Contato->anotacao = $request->anotacao;
         $Contato->contato = $request->contato;
         $Contato->save();

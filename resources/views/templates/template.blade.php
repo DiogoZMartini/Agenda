@@ -11,11 +11,13 @@
 </head>
 <body class="fundo">
     <main class="container main">
-        <ul class="nav nav-pills nav-stacked menu">
-            <li class="logo"><img src="{{ asset('logo.png') }}" class="imagem"></li>
-            <li role="presentation" class="opcoes"><a href="{{ route('contato.index')}}">Contatos</a></li>
-            <li role="presentation" class="opcoes"><a href="{{ route('pessoa.index')}}">Pessoas</a></li>
-        </ul>
+        <nav class="navbar navbar-default sidebar menu">
+            <ul class="nav">
+                <li class="logo"><img src="{{ asset('logo.png') }}" class="imagem"></li>
+                <li role="presentation" class="opcoes"><a href="{{ route('contato.index')}}">Contatos</a></li>
+                <li role="presentation" class="opcoes"><a href="{{ route('pessoa.index')}}">Pessoas</a></li>
+            </ul>
+        </nav>
         @yield('template')
     </main>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

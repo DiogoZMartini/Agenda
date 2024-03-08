@@ -18,7 +18,6 @@
                     <td>Contato</td>
                     <td>Pessoa</td>
                     <td>Tipo de Contato</td>
-                    <td>Anotação</td>
                 </tr>
             </thead>
             <tbody>
@@ -28,7 +27,6 @@
                         <td>{{ $Contato->contato }}</td>
                         <td>{{ $Contato->relPessoa->nome }}</td>
                         <td>{{ $Contato->relDominioTipoContato->descricao}}</td>
-                        <td>{{ $Contato->anotacao }}</td>
                         <td>
                             <a href="{{ route('contato.show', ['id' => $Contato])}}"  >
                                 <button class="btn glyphicon glyphicon-eye-open btn-success"></button>
@@ -50,7 +48,7 @@
         </table>
     </div>
     <!-- Modal -->
-        <form id="formExcluirPessoa" method="post" action="{{ route('pessoa.destroy', 'id') }}">
+        <form id="formExcluirPessoa" method="post" action="{{ route('contato.destroy', 'id') }}">
             @method('DELETE')
             {{ csrf_field() }}
             <div class="modal fade " id="excluirModal" tabindex="-1" role="dialog" aria-labelledby="excluirModalLabel">
