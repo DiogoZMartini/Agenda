@@ -19,7 +19,7 @@
                 <label class="sr-only" for="sobrenome">Sobrenome:</label>
                 <input type="text" class="form-control" name="sobrenome" value="{{ $filtro['sobrenome'] ?? '' }}" placeholder="Sobrenome">
             </div>
-            <button type="submit" class="btn glyphicon glyphicon-search btn btn-info btnFiltro"></button>
+            <button type="submit" class="btn glyphicon glyphicon-search btn btn-warning btnFiltro"></button>
         </form>
         <table class="table table-striped">
             <thead>
@@ -27,8 +27,8 @@
                     <td>Id</td>
                     <td>Nome</td>
                     <td>Sobrenome</td>
-                    <td>Endereco</td>
                     <td>Sexo</td>
+                    <td>Contato</td>
                 </tr>
             </thead>
             <tbody>
@@ -38,6 +38,11 @@
                         <td>{{ $Pessoa->nome }}</td>
                         <td>{{ $Pessoa->sobrenome }}</td>
                         <td>{{ $Pessoa->sexo }}</td>
+                        <td>
+                            <a href="{{ route('contato.create', ['id' => $Pessoa])}}"  >
+                                <button class="btn glyphicon glyphicon-plus btn-info"></button>
+                            </a>
+                        </td>
                         <td>
                             <a href="{{ route('pessoa.show', ['id' => $Pessoa])}}"  >
                                 <button class="btn glyphicon glyphicon-eye-open btn-success"></button>

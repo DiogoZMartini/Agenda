@@ -17,17 +17,16 @@ class ContatoController extends Controller
      */
     public function index(Request $request)
     {
-        $contatos = Contato::filter($request->all())->get();
+        $filtro = array_filter($request->only(['contato']));
 
-        $contatos->load('relPessoa');
+        $Contato = Contato::when($filtro, function ($query) use ($filtro) {
+            $query->where($filtro);
+        })->get();
 
-        $pessoas = $contatos->pluck('relPessoa');
 
-
-        return view('pessoa.index', [
-            'Contatos' => $contatos,
-            'Pessoas' => $pessoas,
-            'filtro' => $request->all(),
+        return view('contato.index', [
+            'Contatos' => $Contato,
+            'filtro' => $filtro,
         ]);
     }
 
@@ -36,12 +35,12 @@ class ContatoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
-        
+        $Pessoa = Pessoa::find($id);
         return view('contato.create', [
-            'TipoContato' => DominioTipoContato::get(),
-            'Pessoa' => Pessoa::get()
+            'TipoContatos' => DominioTipoContato::get(),
+            'Pessoa' => $Pessoa
         ]);
 
     }
@@ -56,20 +55,19 @@ class ContatoController extends Controller
     {
         
         $request->validate([
-            'pessoa_id' => 'required',
-            'tipo_contato_id' => 'required',
+            'tipo_contato_fk' => 'required',
             'anotacao' => 'nullable|string',
             'contato' => 'required|string',
         ]);        
 
         $Contato = new Contato();
-        $Contato->pessoa_id = $request->pessoa_id;
-        $Contato->tipo_contato_id = $request->tipo_contato_id;
+        $Contato->pessoa_fk = $request->pessoa_fk;
+        $Contato->tipo_contato_fk = $request->tipo_contato_fk;
         $Contato->anotacao = $request->anotacao;
         $Contato->contato = $request->contato;
         $Contato->save();
         
-        return redirect()->route('contato.index');
+        return redirect()->route('pessoa.index');
 
     }
 

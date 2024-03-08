@@ -17,12 +17,8 @@ class DominioTipoContato extends Model
         'descricao'
     ];
 
-    public function tipoContato(){
-        return $this->hasOne(Contato::class, 'tipo_contato_id');
-    }
-
-    public function relPessoa(){
-        return $this->hasMany(Pessoa::class, 'pessoa_id', 'id');
+    public function relContato(){
+        return $this->hasOne(Contato::class, 'tipo_contato_fk');
     }
 
     public function setFilter(){

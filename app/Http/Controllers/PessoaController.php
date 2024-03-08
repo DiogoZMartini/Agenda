@@ -88,11 +88,9 @@ class PessoaController extends Controller
             'complemento'     => $request->complemento,
             'estado'          => $request->estado,
             'numero'          => $request->numero,
-            'pessoa_fk'       => $Pessoa->id,
         ]);
 
         $Pessoa->relContato()->create([
-            'pessoa_fk'         => $Pessoa->id,
             'tipo_contato_fk'   => $request->tipo_contato_id,
             'anotacao'          => $request->anotacao,
             'contato'           => $request->contato,
@@ -112,11 +110,11 @@ class PessoaController extends Controller
     {
 
         $Pessoa = Pessoa::find($id);
-        $End = Endereco::find($Pessoa->endereco_id);
+        $Endereco = $Pessoa->relEndereco();
         return view('pessoa.show', [
 
             'Pessoa' => $Pessoa,
-            'Endereco' => $End,
+            'Endereco' => $Endereco,
         
         ]);
 

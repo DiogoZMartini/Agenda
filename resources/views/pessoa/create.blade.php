@@ -5,8 +5,8 @@
         <form class="form-inline" method="POST" action="{{ route('pessoa.store') }}">
             {{ csrf_field() }}
             @if($errors->any())
-                <div class="alert alert-danger">
-                    Preencha todos os Campos requeridos
+                <div class="alert alert-danger" role="alert">
+                    Preencha Corretamente todos os Campos requeridos
                 </div>
             @endif
             <div class="camposFormularios">
@@ -94,7 +94,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <select name="tipo_contato_id"  id="tipo_contato_id" class="form-control seletorPessoa @error('tipo_contato_id') campoVermelho @enderror" required>
+                    <select name="tipo_contato_id"  id="tipo_contato_id" class="form-control seletorPessoa @error('tipo_contato_id') campoVermelho @enderror">
                         <option value="" {{ old('tipo_contato_id') == '' ? 'selected' : '' }}>Selecione</option>
                         @foreach($TipoContatos as $TipoContato)
                             <option value="{{ $TipoContato->id }}" {{ old('tipo_contato_id') == $TipoContato->id ? 'selected' : '' }}>{{ $TipoContato->descricao }}</option>

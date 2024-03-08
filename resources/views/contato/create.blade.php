@@ -1,41 +1,40 @@
 @extends('templates.template')
 
 @section('template')
-    <div class="formulario">
-        <form class="form-horizontal" method="POST" action="{{ route('contato.store') }}">
+    <div class="formulario formularioEdit">
+        <form class="form-inline" method="POST" action="{{ route('contato.store') }}">
             {{ csrf_field() }}
             @if($errors->any())
-            <div class="alert alert-danger">
-                Preencha todos os Campos requeridos
-            </div>
+                <div class="alert alert-danger" role="alert">
+                    Preencha Corretamente todos os Campos requeridos
+                </div>
             @endif
-            <div class="form-group">
-                <label for="contato" class="col-sm-2 control-label furmularioTexto">Contato</label>
-                <div class="formularioImput">
-                    <input type="text" class="form-control @error('contato') campoVermelho @enderror" id="contato" name="contato" placeholder="Contato" value="{{ old('contato') }}">
+            <div class="camposFormularios">
+                <h4>Adicionar um Contato</h4>
+                <hr>
+                <div class="form-group">
+                    <label for="contato" class="col-sm-2 control-label furmularioTexto">Contato</label>
+                    <div class="formularioImput">
+                        <input type="text" class="form-control @error('contato') campoVermelho @enderror" id="contato" name="contato" placeholder="Contato" value="{{ old('contato') }}">
+                    </div>
                 </div>
-            </div>
-            <div class="form-group">
-                <select name="pessoa_id"  id="pessoa_id" class="form-control seletor @error('pessoa_id') campoVermelho @enderror" required>
-                    <option value="" {{ old('pessoa_id') == '' ? 'selected' : '' }}>Selecione</option>
-                    @foreach($Pessoa as $P)
-                        <option value="{{ $P->id }}" {{ old('pessoa_id') == $P->id ? 'selected' : '' }}>{{ $P->nome }}</option>
-                    @endforeach
-                </select>
-                <select name="tipo_contato_id"  id="tipo_contato_id" class="form-control seletor @error('tipo_contato_id') campoVermelho @enderror" required>
-                    <option value="" {{ old('tipo_contato_id') == '' ? 'selected' : '' }}>Selecione</option>
-                    @foreach($TipoContato as $Tipo)
-                        <option value="{{ $Tipo->id }}" {{ old('tipo_contato_id') == $Tipo->id ? 'selected' : '' }}>{{ $Tipo->tipo }}</option>
-                    @endforeach
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="anotacao" class="col-sm-2 control-label furmularioTexto">Anotação</label>
-                <div class="formularioImput">
-                    <input type="text" class="form-control @error('anotacao') campoVermelho @enderror" id="anotacao" name="anotacao" placeholder="Anotação" value="{{ old('anotacao') }}">
+                <div class="form-group">
+                    <label for="anotacao" class="col-sm-2 control-label furmularioTexto">Anotação</label>
+                    <div class="formularioImput">
+                        <input type="text" class="form-control @error('anotacao') campoVermelho @enderror" id="anotacao" name="anotacao" placeholder="Anotação" value="{{ old('anotacao') }}">
+                    </div>
                 </div>
+                <div class="form-group">
+                    <select name="tipo_contato_fk"  id="tipo_contato_fk" class="form-control seletorContato @error('tipo_contato_fk') campoVermelho @enderror" required>
+                        <option value="" {{ old('tipo_contato_fk') == '' ? 'selected' : '' }}>Selecione</option>
+                        @foreach($TipoContatos as $TipoContato)
+                            <option value="{{ $TipoContato->id }}" {{ old('tipo_contato_fk') == $TipoContato->id ? 'selected' : '' }}>{{ $TipoContato->descricao }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <input type="hidden" class="form-control" id="pessoa_fk" name="pessoa_fk" value="{{$Pessoa->id}}">
+                <button type="submit" class="btn btn-default cadastrar">Adicionar</button>
             </div>
-            <button type="submit" class="btn btn-default">Criar</button>
         </form>
     <div>
 @endsection

@@ -29,7 +29,7 @@ Route::put('/endereco/update/{Endereco}', 'EnderecoController@update')->name('en
 Route::delete('/endereco/delete/{id}', 'EnderecoController@destroy')->name('endereco.destroy');
 
 Route::get('/contato', 'ContatoController@index')->name('contato.index');
-Route::get('/contato/create', 'ContatoController@create')->name('contato.create');
+Route::get('/contato/create/{id}', 'ContatoController@create')->name('contato.create');
 Route::get('/contato/show/{id}', 'ContatoController@show')->name('contato.show');
 Route::post('/contato/store', 'ContatoController@store')->name('contato.store');
 Route::get('/contato/edit/{id}', 'ContatoController@edit')->name('contato.edit');

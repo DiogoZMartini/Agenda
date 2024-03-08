@@ -28,7 +28,7 @@ class Contato extends Model
     }
 
     public function relDominioTipoContato(){
-        return $this->hasOne(DominioTipoContato::class, 'id', 'tipo_contato_id');
+        return $this->hasOne(DominioTipoContato::class, 'id', 'tipo_contato_fk');
     }
 
     public function setFilter()

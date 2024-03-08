@@ -4,20 +4,10 @@
     <div class="tabela">
         <h1 class="titulo">Contatos</h1>
         <hr>
-
-        <div>
-            <a href="{{ route('contato.create') }}">
-                <button class="cadastrar btn btn-primary btn-sm">Cadastrar</button>
-            </a>
-        </div>
         <form method="get" action="{{ route('contato.index') }}" class="form-inline">
             <div class="form-group">
                 <label for="contato" class="sr-only">Contato:</label>
                 <input type="text" class="form-control" name="contato" value="{{ $filtro['contato'] ?? '' }}" placeholder="Contato">
-            </div>
-            <div class="form-group">
-                <label class="sr-only" for="sobrenome">Pessoa:</label>
-                <input type="text" class="form-control" name="pessoa" value="{{ $filtro['pessoa'] ?? '' }}" placeholder="Pessoa">
             </div>
             <button type="submit" class="btn glyphicon glyphicon-search btn btn-info btnFiltro"></button>
         </form>
@@ -37,7 +27,7 @@
                         <td>{{ $Contato->id }}</td>
                         <td>{{ $Contato->contato }}</td>
                         <td>{{ $Contato->relPessoa->nome }}</td>
-                        <td>{{ $Contato->contatoTipo->tipo }}</td>
+                        <td>{{ $Contato->relDominioTipoContato->descricao}}</td>
                         <td>{{ $Contato->anotacao }}</td>
                         <td>
                             <a href="{{ route('contato.show', ['id' => $Contato])}}"  >
