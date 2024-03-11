@@ -21,8 +21,9 @@
                 <div class="form-group">
                     <label for="sobrenome" class="col-sm-2 control-label furmularioTexto">Sobrenome</label>
                     <div class="formularioImput">
-                        <input class="form-control" id="sobrenome" type="text" value="{{$Pessoa->sobrenome}}" disabled>                    </div>
+                        <input class="form-control" id="sobrenome" type="text" value="{{$Pessoa->sobrenome}}" disabled>                    
                     </div>
+                </div>
                 <div class="form-group">
                     <label for="sexo" class="col-sm-2 control-label furmularioTexto">Sexo</label>
                     <div class="formularioImput">

@@ -110,13 +110,19 @@ class PessoaController extends Controller
     {
 
         $Pessoa = Pessoa::find($id);
-        $Endereco = $Pessoa->relEndereco();
-        return view('pessoa.show', [
-
-            'Pessoa' => $Pessoa,
-            'Endereco' => $Endereco,
+        $Endereco = $Pessoa->relEndereco;
         
-        ]);
+        
+
+        if($Pessoa){
+            $Dados['pessoa'] = $Pessoa->toArray();
+            $Dados['endereco'] = $Pessoa->relEndereco->toArray();
+            $Dados['contato'] = $Pessoa->relContato->toArray();
+            return response()->json($Dados);
+        }else{
+            return response()->json(['error' => 'Pessoa não encontrada'], 404);
+        }
+ 
 
     }
 
@@ -177,4 +183,5 @@ class PessoaController extends Controller
         $Pessoa->delete();
         return back();
     }
+
 }
