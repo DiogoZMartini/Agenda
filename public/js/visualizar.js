@@ -18,6 +18,16 @@ $('#visualizarModal').on('show.bs.modal', function(event){
             $('#rua').val(data.endereco.rua);
             $('#numero').val(data.endereco.numero);
             $('#complemento').val(data.endereco.complemento);
+            if(data.contatos.length > 0){
+                data.contatos.forEach(function(contatos){               
+
+                    $('#contatos').append(
+                            '<tr> <td>'+ contatos.contato +'</td> <td>'+ contatos.relDominioTipoContato.descricao +'</td> </tr>'                       
+                    );
+                });
+            }else {
+                $('#contatoLista').append('Contatos não encontrado');
+            }
         },
         error: function(xhr){
             console.error(xhr.responseText);

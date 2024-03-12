@@ -86,7 +86,7 @@
                 </div>
             </div>
         </form>
-    <!-- Modal Visualizar-->
+    <!-- Modal Visualizar -->
         <form id="formVisualisarPessoa">
             {{ csrf_field() }}
             <div class="modal fade " id="visualizarModal" tabindex="-1" role="dialog" aria-labelledby="visualizarModalLabel">
@@ -169,11 +169,8 @@
                                     <td>Tipo de Contato</td>
                                 </tr>
                             </thead>
-                            <tbody>
-                                @foreach ()
-                                    
-                                @endforeach
-                            </tbody>    
+                            <tbody id="contatos">
+                            </tbody>      
                         </table>
                         <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Voltar</button>
@@ -182,4 +179,25 @@
                 </div>
             </div>
         </form>
+    <!-- Modal Edição -->
+    <form id="formEditPessoa" method="post" action="{{ route('pessoa.update' , 'id') }}">
+        @method('PUT')
+        {{ csrf_field() }}
+        <div class="modal fade " id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        
+
+                        
+                    </div>
+                    <input type="hidden" name="id" id="id" value="">
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-danger">Alterar</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
 @endsection
