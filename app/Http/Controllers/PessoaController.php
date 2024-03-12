@@ -109,12 +109,13 @@ class PessoaController extends Controller
     public function show($id)
     {
 
-        $Pessoa = Pessoa::with(['relEndereco', 'relContato', 'relContato.relDominioTipoContato'])->find($id);        
+        $Pessoa = Pessoa::with(['relEndereco', 'relContato', 'relContato.relDominioTipoContato'])->find($id); 
         if($Pessoa){
             $dados = [
                 'pessoa'        => $Pessoa->toArray(),
                 'endereco'      => $Pessoa->relEndereco->toArray(),
                 'contatos'      => $Pessoa->relContato->toArray(),
+                'tipoContato'   => $Pessoa->relContato->relDominioTipoContato->toArray(),
             ];
             return response()->json($dados);
         }else{

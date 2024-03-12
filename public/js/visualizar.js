@@ -20,7 +20,7 @@ $('#visualizarModal').on('show.bs.modal', function(event){
             $('#complemento').val(data.endereco.complemento);
             if(data.contatos.length > 0){
                 data.contatos.forEach(function(contatos){               
-
+ 
                     $('#contatos').append(
                             '<tr> <td>'+ contatos.contato +'</td> <td>'+ contatos.relDominioTipoContato.descricao +'</td> </tr>'                       
                     );
