@@ -45,12 +45,12 @@
                         </td>
                         <td>
                             <a href="#" data-toggle="modal" data-target="#visualizarModal" data-id="{{ $Pessoa->id }}">
-                                <button class="btn glyphicon glyphicon-eye-open btn-success"></button>
+                                <button class="btn glyphicon glyphicon-eye-open btn-success" id="botao"></button>
                             </a>
                         </td>
                         <td>
-                            <a href="{{ route('pessoa.edit', ['Pessoa' => $Pessoa] )}}">
-                                <button class="btn glyphicon glyphicon-pencil btn-primary"></button>
+                            <a href="#" data-toggle="modal" data-target="#editModal" data-id="{{ $Pessoa->id }}">
+                                <button class="btn glyphicon glyphicon-pencil btn-primary" id="editbotao"></button>
                             </a>
                         </td>
                         <td>
@@ -187,13 +187,31 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-body">
-                        
-
-                        
+                        @if($errors->any())
+                            <div class="alert alert-danger">
+                                Preencha todos os Campos requeridos
+                            </div>
+                        @endif
+                        <div class="camposFormularios">
+                            <h4>Dados da Pessoa</h4>
+                            <hr>
+                            <div class="form-group">
+                                <label for="nomeEdit" class="col-sm-2 control-label furmularioTexto">Nome</label>
+                                <div class="formularioImput">
+                                    <input type="text" class="form-control @error('nome') campoVermelho @enderror" id="nomeEdit" name="nomeEdit">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="sobrenomeEdit" class="col-sm-2 control-label furmularioTexto">Sobrenome</label>
+                                <div class="formularioImput">
+                                    <input type="text" class="form-control @error('sobrenome') campoVermelho @enderror" id="sobrenomeEdit" name="sobrenomeEdit">
+                                </div>
+                            </div>
+                        </div>                         
                     </div>
                     <input type="hidden" name="id" id="id" value="">
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-danger">Alterar</button>
+                        <button type="submit" class="btn btn-info">Alterar</button>
                         <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
                     </div>
                 </div>

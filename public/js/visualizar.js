@@ -19,10 +19,9 @@ $('#visualizarModal').on('show.bs.modal', function(event){
             $('#numero').val(data.endereco.numero);
             $('#complemento').val(data.endereco.complemento);
             if(data.contatos.length > 0){
-                data.contatos.forEach(function(contatos){               
- 
+                data.contatos.forEach(function(contatos, tipoContato){               
                     $('#contatos').append(
-                            '<tr> <td>'+ contatos.contato +'</td> <td>'+ contatos.relDominioTipoContato.descricao +'</td> </tr>'                       
+                            '<tr> <td>'+ contatos.contato +'</td> <td>'+ tipoContato.descricao +'</td> </tr>',                       
                     );
                 });
             }else {

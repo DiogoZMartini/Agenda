@@ -109,14 +109,23 @@ class PessoaController extends Controller
     public function show($id)
     {
 
-        $Pessoa = Pessoa::with(['relEndereco', 'relContato', 'relContato.relDominioTipoContato'])->find($id); 
+        $Pessoa = Pessoa::with(['relEndereco', 'relContato', 'relContato.relDominioTipoContato'])->find($id);
+        $Contato = $Pessoa->relContato;
+         
         if($Pessoa){
             $dados = [
                 'pessoa'        => $Pessoa->toArray(),
                 'endereco'      => $Pessoa->relEndereco->toArray(),
                 'contatos'      => $Pessoa->relContato->toArray(),
-                'tipoContato'   => $Pessoa->relContato->relDominioTipoContato->toArray(),
+                'tipoContato'   => [],
             ];
+            foreach($Contato as $Contato){
+                $dados['tipoContato'][] = [
+                    'tipoContato' => $Contato->relDominioTipoContato->toArray(),
+                ];
+            }
+
+
             return response()->json($dados);
         }else{
             return response()->json(['error' => 'Pessoa não encontrada'], 404);
@@ -134,11 +143,18 @@ class PessoaController extends Controller
     public function edit($id)
     {
 
-        return view('pessoa.edit', [
+        $Pessoa = Pessoa::with(['relEndereco', 'relContato', 'relContato.relDominioTipoContato'])->find($id);
+         
+        if($Pessoa){
+            $dados = [
+                'pessoa' => $Pessoa->toArray(),
+            ];
 
-            'Pessoa' => Pessoa::find($id),
 
-        ]);
+            return response()->json($dados);
+        }else{
+            return response()->json(['error' => 'Pessoa não encontrada'], 404);
+        }
 
     }
 
@@ -160,9 +176,9 @@ class PessoaController extends Controller
         ]);
 
         $Pessoa = Pessoa::find($id);
-        $Pessoa->nome = $request->nome;
-        $Pessoa->sobrenome = $request->sobrenome;
-        $Pessoa->sexo = $request->sexo;
+        $Pessoa->nome = $request->nomeEdit;
+        $Pessoa->sobrenome = $request->sobrenomeEdit;
+        $Pessoa->sexo = $request->sexoEdit;
         $Pessoa->save();
 
         return redirect()->route('pessoa.index');
