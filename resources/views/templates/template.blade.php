@@ -20,7 +20,7 @@
         </nav>
         @yield('template')
     </main>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="{{ asset('js/excluir.js') }}"></script>
     <script src="{{ asset('js/editar.js') }}"></script>
     <script src="{{ asset('js/visualizar.js') }}"></script>

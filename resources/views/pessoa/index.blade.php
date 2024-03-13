@@ -6,9 +6,7 @@
         <hr>
 
         <div>
-            <a href="{{ route('pessoa.create') }}">
-                <button class="cadastrar btn btn-primary btn-sm">Cadastrar</button>
-            </a>
+                <button class="cadastrar btn btn-primary btn-sm" id="abrirModalCadastrar">Cadastrar</button>
         </div>
         <form method="get" action="{{ route('pessoa.index') }}" class="form-inline">
             <div class="form-group">
@@ -180,42 +178,21 @@
             </div>
         </form>
     <!-- Modal Edição -->
-    <form id="formEditPessoa" method="post" action="{{ route('pessoa.update' , 'id') }}">
-        @method('PUT')
-        {{ csrf_field() }}
-        <div class="modal fade " id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-body">
-                        @if($errors->any())
-                            <div class="alert alert-danger">
-                                Preencha todos os Campos requeridos
-                            </div>
-                        @endif
-                        <div class="camposFormularios">
-                            <h4>Dados da Pessoa</h4>
-                            <hr>
-                            <div class="form-group">
-                                <label for="nomeEdit" class="col-sm-2 control-label furmularioTexto">Nome</label>
-                                <div class="formularioImput">
-                                    <input type="text" class="form-control @error('nome') campoVermelho @enderror" id="nomeEdit" name="nomeEdit">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="sobrenomeEdit" class="col-sm-2 control-label furmularioTexto">Sobrenome</label>
-                                <div class="formularioImput">
-                                    <input type="text" class="form-control @error('sobrenome') campoVermelho @enderror" id="sobrenomeEdit" name="sobrenomeEdit">
-                                </div>
-                            </div>
-                        </div>                         
-                    </div>
-                    <input type="hidden" name="id" id="id" value="">
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-info">Alterar</button>
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                    </div>
-                </div>
+    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title" id="editModalLabel">Modal title</h4>
             </div>
+            <div class="modal-body">
+              ...
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+          </div>
         </div>
-    </form>
+      </div>
 @endsection
