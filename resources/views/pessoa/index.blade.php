@@ -183,14 +183,38 @@
           <div class="modal-content">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              <h4 class="modal-title" id="editModalLabel">Modal title</h4>
+              <h4 class="modal-title" id="editModalLabel">Alteração de pessoa</h4>
             </div>
             <div class="modal-body">
-              ...
+                <form id="formEdit" class="form-inline" method="POST" action="{{ route('pessoa.update' , $Pessoa->id) }}">
+                    {{ csrf_field() }}
+                    @method('PUT')
+                    @if($errors->any())
+                    <div class="alert alert-danger">
+                        Preencha todos os Campos requeridos
+                    </div>
+                    @endif
+                    <div class="camposFormularios">
+                        <h4>Dados da Pessoa</h4>
+                        <hr>
+                        <div class="form-group">
+                            <label for="nomeEdit" class="col-sm-2 control-label furmularioTexto">Nome</label>
+                            <div class="formularioImput">
+                                <input type="text" class="form-control @error('nomeEdit') campoVermelho @enderror" id="nomeEdit" name="nomeEdit">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="sobrenomeEdit" class="col-sm-2 control-label furmularioTexto">Sobrenome</label>
+                            <div class="formularioImput">
+                                <input type="text" class="form-control @error('sobrenomeEdit') campoVermelho @enderror" id="sobrenomeEdit" name="sobrenomeEdit">
+                            </div>
+                        </div>
+                    </div>
+                <button type="submit" class="btn btn-info cadastrar">Atualizar</button>
+            </form>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary">Save changes</button>
+              <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
             </div>
           </div>
         </div>

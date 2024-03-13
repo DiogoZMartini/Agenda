@@ -3,12 +3,10 @@ $('#editModal').on('show.bs.modal', function(event){
     var recipientId = button.data('id');
     console.log(recipientId);
     
-    function atualizarPessoa(){
-        var formData = $('#editform').serialize();
+
         $.ajax({
             url: "/pessoa/edit/" + recipientId,
             method: "GET",
-            data: formData,
             success: function(data){
                 $('#nomeEdit').val(data.pessoa.nome);
                 $('#sobrenomeEdit').val(data.pessoa.sobrenome);
@@ -20,5 +18,4 @@ $('#editModal').on('show.bs.modal', function(event){
                 console.error(xhr.responseText);
             }
         });
-    }
 })
