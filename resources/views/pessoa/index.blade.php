@@ -47,8 +47,8 @@
                             </a>
                         </td>
                         <td>
-                            <a href="#" data-toggle="modal" data-target="#editModal" data-id="{{ $Pessoa->id }}">
-                                <button class="btn glyphicon glyphicon-pencil btn-primary" id="editbotao"></button>
+                            <a href="#">
+                                <button class="btn glyphicon glyphicon-pencil btn-primary" id="botaoEdit"  data-id="{{ $Pessoa->id }}"></button>
                             </a>
                         </td>
                         <td>
@@ -210,7 +210,7 @@
                             </div>
                         </div>
                     </div>
-                <button type="submit" class="btn btn-info cadastrar">Atualizar</button>
+                <button type="submit" class="btn btn-info cadastrar" id="btnAtualizar">Atualizar</button>
             </form>
             </div>
             <div class="modal-footer">
