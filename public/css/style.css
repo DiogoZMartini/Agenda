@@ -83,6 +83,12 @@
     margin-left: 1.5em;
 }
 
+.seletorPessoaEdit{
+    margin-top: 1.5em;
+    margin-left: 1em;
+    width: 30%;
+}
+
 .formularioImput{
     width: 90%;
     margin-left: 1em;
@@ -125,4 +131,8 @@
 .formularioImputAnotacao{
     padding: 1em;
     margin-left: 4em;
+}
+
+.modalVisualizar{
+    width: 90%;
 }

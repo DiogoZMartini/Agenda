@@ -169,6 +169,24 @@ class PessoaController extends Controller
     {
         $request->validate([
 
+            'nomeEdit'          => 'required|string',
+            'sobrenomeEdit'     => 'required|string',
+            'sexoEdit'          => 'required',
+
+        ]);
+
+        $Pessoa = Pessoa::find($id);
+        $Pessoa->nome = $request->nomeEdit;
+        $Pessoa->sobrenome = $request->sobrenomeEdit;
+        $Pessoa->sexo = $request->sexoEdit;
+        $Pessoa->save();
+
+        return response()->json(['success' => true]);
+
+
+
+        /*        $request->validate([
+
             'nome'          => 'required|string',
             'sobrenome'     => 'required|string',
             'sexo'          => 'required',
@@ -181,7 +199,7 @@ class PessoaController extends Controller
         $Pessoa->sexo = $request->sexoEdit;
         $Pessoa->save();
 
-        return redirect()->route('pessoa.index');
+        return response()->json(['success' => true]);*/ 
 
     }
 

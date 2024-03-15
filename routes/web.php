@@ -17,7 +17,7 @@ Route::get('/pessoa/create', 'PessoaController@create')->name('pessoa.create');
 Route::get('/pessoa/show/{id}', 'PessoaController@show')->name('pessoa.show');
 Route::post('/pessoa/store', 'PessoaController@store')->name('pessoa.store');
 Route::get('/pessoa/edit/{id}', 'PessoaController@edit')->name('pessoa.edit');
-Route::put('/pessoa/update/{Pessoa}', 'PessoaController@update')->name('pessoa.update');
+Route::post('/pessoa/update/{id}', 'PessoaController@update')->name('pessoa.update');
 Route::delete('/pessoa/delete/{id}', 'PessoaController@destroy')->name('pessoa.destroy');
 
 Route::get('/endereco', 'EnderecoController@index')->name('endereco.index');

@@ -48,7 +48,7 @@
                         </td>
                         <td>
                             <a href="#">
-                                <button class="btn glyphicon glyphicon-pencil btn-primary" id="botaoEdit"  data-id="{{ $Pessoa->id }}"></button>
+                                <button class="btn glyphicon glyphicon-pencil btn-primary" id="botaoEdit" data-toggle="modal" data-target="#editModal" data-id="{{ $Pessoa->id }}"></button>
                             </a>
                         </td>
                         <td>
@@ -186,9 +186,8 @@
               <h4 class="modal-title" id="editModalLabel">Alteração de pessoa</h4>
             </div>
             <div class="modal-body">
-                <form id="formEdit" class="form-inline" method="POST" action="{{ route('pessoa.update' , $Pessoa->id) }}">
+                <form id="formEdit" class="form-inline">
                     {{ csrf_field() }}
-                    @method('PUT')
                     @if($errors->any())
                     <div class="alert alert-danger">
                         Preencha todos os Campos requeridos
@@ -208,6 +207,12 @@
                             <div class="formularioImput">
                                 <input type="text" class="form-control @error('sobrenomeEdit') campoVermelho @enderror" id="sobrenomeEdit" name="sobrenomeEdit">
                             </div>
+                        </div>
+                        <div class="form-group">
+                            <select name="sexoEdit"  id="sexoEdit" class="form-control seletorPessoaEdit @error('sexo') campoVermelho @enderror" required>                                                           
+                                <option value="Masculino">Masculino</option>
+                                <option value="Femenino">Feminino</option>                   
+                            </select>
                         </div>
                     </div>
                 <button type="submit" class="btn btn-info cadastrar" id="btnAtualizar">Atualizar</button>
