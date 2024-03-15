@@ -210,8 +210,8 @@
                         </div>
                         <div class="form-group">
                             <select name="sexoEdit"  id="sexoEdit" class="form-control seletorPessoaEdit @error('sexo') campoVermelho @enderror" required>                                                           
-                                <option value="Masculino">Masculino</option>
-                                <option value="Femenino">Feminino</option>                   
+                                <option @if('sexo' == 'Masculino') selected @endif value="Masculino">Masculino</option>
+                                <option @if('sexo' == 'Femenino') selected @endif value="Femenino">Feminino</option>                   
                             </select>
                         </div>
                     </div>
