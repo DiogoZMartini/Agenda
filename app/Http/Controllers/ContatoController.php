@@ -38,19 +38,14 @@ class ContatoController extends Controller
     public function create($id)
     {
         $Pessoa = Pessoa::with(['relContato', 'relContato.relDominioTipoContato'])->find($id);
-        $Contato = $Pessoa->relContato;
          
         if($Pessoa){
             $dados = [
                 'pessoa'        => $Pessoa->toArray(),
                 'contatos'      => $Pessoa->relContato->toArray(),
-                'tipoContato'   => [],
+                'tipoContato'   => DominioTipoContato::get(),
             ];
-            foreach($Contato as $Contato){
-                $dados['tipoContato'][] = [
-                    'tipoContato' => $Contato->relDominioTipoContato->toArray(),
-                ];
-            }
+
 
 
             return response()->json($dados);
@@ -115,15 +110,18 @@ class ContatoController extends Controller
     public function edit($id)
     {
         $Contato = Contato::find($id);
+         
+        if($Contato){
+            $dados = [
+                'contato' => $Contato->toArray(),
+                'tipoContato' => DominioTipoContato::get(), 
+            ];
 
-        return view('contato.edit', [
 
-            'Contato' => $Contato,           
-            'TipoContatos' => DominioTipoContato::get(), 
-
-        ]);
-
-        $Pessoa = Pessoa::find($id);
+            return response()->json($dados);
+        }else{
+            return response()->json(['error' => 'Contato não encontrada'], 404);
+        }
          
         
 
@@ -141,16 +139,16 @@ class ContatoController extends Controller
     {
         
         $request->validate([
-            'tipo_contato_fk' => 'required',
-            'anotacao' => 'required',
-            'contato' => 'required',
+            'tipoContatoFkEdit' => 'required',
+            'anotacaoEdit' => 'required',
+            'contatoEdit' => 'required',
         ]);
         
 
         $Contato = Contato::find($id);
-        $Contato->tipo_contato_fk = $request->tipo_contato_fk;
-        $Contato->anotacao = $request->anotacao;
-        $Contato->contato = $request->contato;
+        $Contato->tipo_contato_fk = $request->tipoContatoFkEdit;
+        $Contato->anotacao = $request->anotacaoEdit;
+        $Contato->contato = $request->contatoEdit;
         $Contato->save();
 
         return response()->json(['success' => true]);

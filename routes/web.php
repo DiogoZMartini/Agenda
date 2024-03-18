@@ -33,7 +33,7 @@ Route::get('/contato/create/{id}', 'ContatoController@create')->name('contato.cr
 Route::get('/contato/show/{id}', 'ContatoController@show')->name('contato.show');
 Route::post('/contato/store', 'ContatoController@store')->name('contato.store');
 Route::get('/contato/edit/{id}', 'ContatoController@edit')->name('contato.edit');
-Route::put('/contato/update/{Contato}', 'ContatoController@update')->name('contato.update');
+Route::post('/contato/update/{Contato}', 'ContatoController@update')->name('contato.update');
 Route::delete('/contato/delete/{id}', 'ContatoController@destroy')->name('contato.destroy');
 
 Route::get('/teste')->name('rota.teste');

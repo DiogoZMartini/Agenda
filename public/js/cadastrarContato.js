@@ -11,7 +11,7 @@ $('#cadastrarContatoModal').on('show.bs.modal', function(event){
             if(data.tipoContato.length > 0){
                 data.tipoContato.forEach(function(tipoContato){               
                     $('#tipo_contato_fk').append(
-                        '<option value="{{'+ tipoContato.id +'}}" {{ old("tipo_contato_fk") == '+ tipoContato.id +' ? "selected" : "" }}>{{'+ tipoContato.descricao +'}}</option>'
+                        '<option value="'+ tipoContato.id +'" {{ old("tipo_contato_fk") == '+ tipoContato.id +' ? "selected" : "" }}>'+ tipoContato.descricao +'</option>'
                     );
                 });
             }else {

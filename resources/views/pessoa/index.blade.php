@@ -173,7 +173,7 @@
                             </tbody>      
                         </table>
                         <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Voltar</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal" id="voltar">Voltar</button>
                         </div>
                     </div>
                 </div>
@@ -226,28 +226,6 @@
           </div>
         </div>
       </div>
-      <form id="formExcluirPessoa" method="post" action="{{ route('pessoa.destroy', 'id') }}">
-            @method('DELETE')
-            {{ csrf_field() }}
-            <div class="modal fade " id="excluirModal" tabindex="-1" role="dialog" aria-labelledby="excluirModalLabel">
-                <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="excluirModalLabel">Confirmação de exclusão</h4>
-                    </div>
-                    <div class="modal-body">
-                        <p> Confirme a exclusão da pessoa ? </p>
-                    </div>
-                    <input type="hidden" name="id" id="id" value="">
-                    <div class="modal-footer">
-                    <button type="submit" class="btn btn-danger">Deletar</button>
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                    </div>
-                </div>
-                </div>
-            </div>
-        </form>
     <!-- Modal Cadastro Contato-->
     <form id="formCadastrarContato">
         {{ csrf_field() }}
@@ -282,7 +260,6 @@
                         <div class="form-group">
                             <select name="tipo_contato_fk"  id="tipo_contato_fk" class="form-control seletorPessoaEdit @error('tipo_contato_fk') campoVermelho @enderror" required>
                                 <option id="tiposContato" value="" {{ old('tipo_contato_fk') == '' ? 'selected' : '' }}>Selecione</option>
-                                <option value="1">Teste</option>
                             </select>
                         </div>
                         <input type="hidden" class="form-control" id="pessoa_fk" name="pessoa_fk">

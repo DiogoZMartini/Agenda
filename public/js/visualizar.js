@@ -33,4 +33,8 @@ $('#visualizarModal').on('show.bs.modal', function(event){
         }
     })
 
+    $('#voltar').on('click', function(){
+        window.location.reload(true);
+    })
+
 })

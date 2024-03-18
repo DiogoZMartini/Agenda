@@ -33,9 +33,7 @@
                             </a>
                         </td>
                         <td>
-                            <a href="{{ route('contato.edit', ['Pessoa' => $Contato] )}}">
-                                <button class="btn glyphicon glyphicon-pencil btn-primary"></button>
-                            </a>
+                                <button class="btn glyphicon glyphicon-pencil btn-primary" data-toggle="modal" data-target="#editContatoModal" data-id="{{ $Contato->id }}"></button>
                         </td>
                         <td>
                             <a href="#" data-id="{{ $Contato->id }}" data-toggle="modal" data-target="#excluirModal">
@@ -47,7 +45,7 @@
             </tbody>    
         </table>
     </div>
-    <!-- Modal -->
+    <!-- Modal Excluir-->
         <form id="formExcluirPessoa" method="post" action="{{ route('contato.destroy', 'id') }}">
             @method('DELETE')
             {{ csrf_field() }}
@@ -70,4 +68,50 @@
                 </div>
             </div>
         </form>
+    <!-- Modal Editar-->
+    <div class="modal fade" id="editContatoModal" tabindex="-1" role="dialog" aria-labelledby="editContatoModalLabel">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title" id="editContatoModalLabel">Alteração de pessoa</h4>
+            </div>
+            <div class="modal-body">
+                <form id="formEditContato" class="form-inline">
+                    {{ csrf_field() }}
+                    @if($errors->any())
+                    <div class="alert alert-danger">
+                        Preencha todos os Campos requeridos
+                    </div>
+                    @endif
+                    <div class="camposFormularios">
+                        <h4>Alterar Contato</h4>
+                        <hr>
+                        <div class="form-group">
+                          <label for="contatoEdit" class="col-sm-2 control-label furmularioTexto">Contato</label>
+                          <div class="formularioImput">
+                            <input type="text" class="form-control @error('contatoEdit') campoVermelho @enderror" id="contatoEdit" name="contatoEdit">
+                          </div>
+                        </div> 
+                        <div class="form-group">
+                          <label for="anotacaoEdit" class="col-sm-2 control-label furmularioTexto">Anotação</label>
+                          <div class="formularioImput">
+                            <input type="text" class="form-control @error('anotacaoEdit') campoVermelho @enderror" id="anotacaoEdit" name="anotacaoEdit">
+                          </div>
+                        </div>
+                        <div class="form-group">           
+                          <select name="tipoContatoFkEdit"  id="tipoContatoFkEdit" class="form-control seletorContato @error('tipoContatoFkEdit') campoVermelho @enderror" required>
+
+                            </select>
+                        </div> 
+                    </div> 
+                <button type="submit" class="btn btn-info cadastrar" id="btnAtualizar">Atualizar</button>
+            </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default voltar" data-dismiss="modal">Fechar</button>
+            </div>
+          </div>
+        </div>
+      </div>
 @endsection

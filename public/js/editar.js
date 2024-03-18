@@ -30,6 +30,7 @@ $('#editModal').on('show.bs.modal', function(event){
                     success: function(response){
                         console.log(response);
                         $('#editModal').modal('hide');
+                        window.location.reload(true);
                         
                     },
                     error: function(xhr){
