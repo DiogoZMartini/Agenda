@@ -30,9 +30,13 @@ $('#cadastrarContatoModal').on('show.bs.modal', function(event){
             success: function(response){
                 console.log(response);
                 $('#cadastrarContatoModal').modal('hide');
-                
+                window.location.reload(true);
             }
         });
         
+    })
+
+    $('.voltar').on('click', function(){
+        window.location.reload(true);
     })
 })
