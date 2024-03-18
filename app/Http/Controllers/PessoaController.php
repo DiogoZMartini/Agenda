@@ -143,7 +143,7 @@ class PessoaController extends Controller
     public function edit($id)
     {
 
-        $Pessoa = Pessoa::with(['relEndereco', 'relContato', 'relContato.relDominioTipoContato'])->find($id);
+        $Pessoa = Pessoa::find($id);
          
         if($Pessoa){
             $dados = [
@@ -182,24 +182,6 @@ class PessoaController extends Controller
         $Pessoa->save();
 
         return response()->json(['success' => true]);
-
-
-
-        /*        $request->validate([
-
-            'nome'          => 'required|string',
-            'sobrenome'     => 'required|string',
-            'sexo'          => 'required',
-
-        ]);
-
-        $Pessoa = Pessoa::find($id);
-        $Pessoa->nome = $request->nomeEdit;
-        $Pessoa->sobrenome = $request->sobrenomeEdit;
-        $Pessoa->sexo = $request->sexoEdit;
-        $Pessoa->save();
-
-        return response()->json(['success' => true]);*/ 
 
     }
 

@@ -25,5 +25,6 @@
     <script src="{{ asset('js/excluir.js') }}"></script>
     <script src="{{ asset('js/editar.js') }}"></script>
     <script src="{{ asset('js/visualizar.js') }}"></script>
+    <script src="{{ asset('js/cadastrarContato.js') }}"></script>
 </body>
 </html>

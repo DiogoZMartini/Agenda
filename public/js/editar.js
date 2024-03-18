@@ -31,6 +31,9 @@ $('#editModal').on('show.bs.modal', function(event){
                         console.log(response);
                         $('#editModal').modal('hide');
                         
+                    },
+                    error: function(xhr){
+                        console.error(xhr.responseText);
                     }
                 });
                 

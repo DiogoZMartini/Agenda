@@ -6,7 +6,9 @@
         <hr>
 
         <div>
-                <button class="cadastrar btn btn-primary btn-sm" id="abrirModalCadastrar">Cadastrar</button>
+            <a href="{{ route('pessoa.create') }}">
+                <button class="cadastrar btn btn-primary btn-sm">Cadastrar</button>
+            </a>
         </div>
         <form method="get" action="{{ route('pessoa.index') }}" class="form-inline">
             <div class="form-group">
@@ -37,18 +39,18 @@
                         <td>{{ $Pessoa->sobrenome }}</td>
                         <td>{{ $Pessoa->sexo }}</td>
                         <td>
-                            <a href="{{ route('contato.create', ['id' => $Pessoa])}}"  >
-                                <button class="btn glyphicon glyphicon-plus btn-info"></button>
+                            <a href="#"  >
+                                <button class="btn glyphicon glyphicon-plus btn-info" data-toggle="modal" data-target="#cadastrarContatoModal" data-id="{{ $Pessoa->id }}"></button>
                             </a>
                         </td>
                         <td>
                             <a href="#" data-toggle="modal" data-target="#visualizarModal" data-id="{{ $Pessoa->id }}">
-                                <button class="btn glyphicon glyphicon-eye-open btn-success" id="botao"></button>
+                                <button class="btn glyphicon glyphicon-eye-open btn-success"></button>
                             </a>
                         </td>
                         <td>
                             <a href="#">
-                                <button class="btn glyphicon glyphicon-pencil btn-primary" id="botaoEdit" data-toggle="modal" data-target="#editModal" data-id="{{ $Pessoa->id }}"></button>
+                                <button class="btn glyphicon glyphicon-pencil btn-primary" data-toggle="modal" data-target="#editModal" data-id="{{ $Pessoa->id }}"></button>
                             </a>
                         </td>
                         <td>
@@ -224,4 +226,74 @@
           </div>
         </div>
       </div>
+      <form id="formExcluirPessoa" method="post" action="{{ route('pessoa.destroy', 'id') }}">
+            @method('DELETE')
+            {{ csrf_field() }}
+            <div class="modal fade " id="excluirModal" tabindex="-1" role="dialog" aria-labelledby="excluirModalLabel">
+                <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="excluirModalLabel">Confirmação de exclusão</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p> Confirme a exclusão da pessoa ? </p>
+                    </div>
+                    <input type="hidden" name="id" id="id" value="">
+                    <div class="modal-footer">
+                    <button type="submit" class="btn btn-danger">Deletar</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </form>
+    <!-- Modal Cadastro Contato-->
+    <form id="formCadastrarContato">
+        {{ csrf_field() }}
+        <div class="modal fade " id="cadastrarContatoModal" tabindex="-1" role="dialog" aria-labelledby="cadastrarContatoModalLabel">
+            <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="cadastrarContatoModalLabel">Confirmação de exclusão</h4>
+                </div>
+                <div class="modal-body">  
+                    @if($errors->any())
+                    <div class="alert alert-danger" role="alert">
+                        Preencha Corretamente todos os Campos requeridos
+                    </div>
+                    @endif
+                    <div class="camposFormularios">
+                        <h4>Adicionar um Contato</h4>
+                        <hr>
+                        <div class="form-group">
+                            <label for="contato" class="col-sm-2 control-label furmularioTexto">Contato</label>
+                            <div class="formularioImput">
+                                <input type="text" class="form-control @error('contato') campoVermelho @enderror" id="contato" name="contato" placeholder="Contato" value="{{ old('contato') }}">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="anotacao" class="col-sm-2 control-label furmularioTexto">Anotação</label>
+                            <div class="formularioImput">
+                                <input type="text" class="form-control @error('anotacao') campoVermelho @enderror" id="anotacao" name="anotacao" placeholder="Anotação" value="{{ old('anotacao') }}">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <select name="tipo_contato_fk"  id="tipo_contato_fk" class="form-control seletorPessoaEdit @error('tipo_contato_fk') campoVermelho @enderror" required>
+                                <option id="tiposContato" value="" {{ old('tipo_contato_fk') == '' ? 'selected' : '' }}>Selecione</option>
+                                <option value="1">Teste</option>
+                            </select>
+                        </div>
+                        <input type="hidden" class="form-control" id="pessoa_fk" name="pessoa_fk">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                <button type="submit" class="btn btn-primary">Cadastrar</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+            </div>
+        </div>
+    </form>
 @endsection

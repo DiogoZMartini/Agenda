@@ -36,7 +36,7 @@ Route::get('/contato/edit/{id}', 'ContatoController@edit')->name('contato.edit')
 Route::put('/contato/update/{Contato}', 'ContatoController@update')->name('contato.update');
 Route::delete('/contato/delete/{id}', 'ContatoController@destroy')->name('contato.destroy');
 
-
+Route::get('/teste')->name('rota.teste');
 
 
 /*

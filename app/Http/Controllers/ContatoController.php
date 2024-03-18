@@ -37,11 +37,26 @@ class ContatoController extends Controller
      */
     public function create($id)
     {
-        $Pessoa = Pessoa::find($id);
-        return view('contato.create', [
-            'TipoContatos' => DominioTipoContato::get(),
-            'Pessoa' => $Pessoa
-        ]);
+        $Pessoa = Pessoa::with(['relContato', 'relContato.relDominioTipoContato'])->find($id);
+        $Contato = $Pessoa->relContato;
+         
+        if($Pessoa){
+            $dados = [
+                'pessoa'        => $Pessoa->toArray(),
+                'contatos'      => $Pessoa->relContato->toArray(),
+                'tipoContato'   => [],
+            ];
+            foreach($Contato as $Contato){
+                $dados['tipoContato'][] = [
+                    'tipoContato' => $Contato->relDominioTipoContato->toArray(),
+                ];
+            }
+
+
+            return response()->json($dados);
+        }else{
+            return response()->json(['error' => 'Contato não encontrada'], 404);
+        }
 
     }
 
@@ -108,6 +123,11 @@ class ContatoController extends Controller
 
         ]);
 
+        $Pessoa = Pessoa::find($id);
+         
+        
+
+
     }
 
     /**
@@ -132,8 +152,8 @@ class ContatoController extends Controller
         $Contato->anotacao = $request->anotacao;
         $Contato->contato = $request->contato;
         $Contato->save();
-        
-        return redirect()->route('contato.index');
+
+        return response()->json(['success' => true]);
 
     }
 
