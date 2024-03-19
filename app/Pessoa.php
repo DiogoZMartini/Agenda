@@ -18,6 +18,11 @@ class Pessoa extends Model
         'sexo'
     ];
 
+    protected $filterable = [
+        'nome',
+        'sobrenome'
+    ];
+
 
     protected static function boot()
     {
@@ -39,7 +44,7 @@ class Pessoa extends Model
         return $this->hasMany(Contato::class, 'pessoa_fk', 'id');
     }
 
-    public function setFilter(){
+    public function setFilters(){
         $this->filter->equal('id')
         ->like('nome')
         ->like('sobrenome');

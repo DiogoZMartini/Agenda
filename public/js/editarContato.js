@@ -11,12 +11,24 @@ $('#editContatoModal').on('show.bs.modal', function(event){
                 $('#tipo_contato_fk_edit').val(data.contato.tipo_contato_fk);
                 $('#anotacaoEdit').val(data.contato.anotacao);
                 $('#contatoEdit').val(data.contato.contato);
+                var contato = {
+                    tipo_contato_fk: data.contato.tipo_contato_fk
+                }
                 if(data.tipoContato.length > 0){
-                    data.tipoContato.forEach(function(tipoContato, contato){      
+                    for (const tipoContato of data.tipoContato) {
+                        console.log(tipoContato);
+                        $('#tipoContatoFkEdit').append(
+                            `<option ${tipoContato.id === contato.tipo_contato_fk ? 'selected' : ''} value="${tipoContato.id}">${tipoContato.descricao}</opion>`
+                        );
+                    }
+                    /*
+                    data.tipoContato.forEach(function(tipoContato, contato){   
+                        console.log(tipoContato);   
                         $('#tipoContatoFkEdit').append(
                                 '<option @if('+ tipoContato.id +' == '+ contato.tipo_contato_fk +') selected @endif value="'+ tipoContato.id +'">'+ tipoContato.descricao +'</option>',                       
                         );
                     });
+                    */
                 }else {
                     $('#tipo_contato_fk_edit').append('Contatos não encontrado');
                 }

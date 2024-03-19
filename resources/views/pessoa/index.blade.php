@@ -11,6 +11,7 @@
             </a>
         </div>
         <form method="get" action="{{ route('pessoa.index') }}" class="form-inline">
+            {{ csrf_field() }}
             <div class="form-group">
                 <label for="nome" class="sr-only">Nome:</label>
                 <input type="text" class="form-control" name="nome" value="{{ $filtro['nome'] ?? '' }}" placeholder="Nome">
@@ -92,9 +93,11 @@
             <div class="modal fade " id="visualizarModal" tabindex="-1" role="dialog" aria-labelledby="visualizarModalLabel">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close voltar" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="cadastrarContatoModalLabel">Dados da Pessoa</h4>
+                            </div>
                         <div class="camposFormularios">
-                            <h4>Dados da Pessoa</h4>
-                            <hr>
                             <div class="form-group">
                                 <label for="nome" class="col-sm-2 control-label furmularioTexto">Nome</label>
                                 <div class="formularioImput">
@@ -138,7 +141,7 @@
                             <div class="form-group">
                                 <label for="bairro" class="col-sm-2 control-label furmularioTexto">Bairro</label>
                                 <div class="formularioImput">
-                                    <input class="form-control" id="bairro" type="text" name="{{$Pessoa->relEndereco->bairro}}" disabled>
+                                    <input class="form-control" id="bairro" type="text" name="bairro" disabled>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -173,7 +176,7 @@
                             </tbody>      
                         </table>
                         <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal" id="voltar">Voltar</button>
+                        <button type="button" class="btn btn-default voltar" data-dismiss="modal" >Voltar</button>
                         </div>
                     </div>
                 </div>
@@ -184,7 +187,7 @@
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <button type="button" class="close voltar" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
               <h4 class="modal-title" id="editModalLabel">Alteração de pessoa</h4>
             </div>
             <div class="modal-body">
@@ -233,7 +236,7 @@
             <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close voltar" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title" id="cadastrarContatoModalLabel">Confirmação de exclusão</h4>
                 </div>
                 <div class="modal-body">  

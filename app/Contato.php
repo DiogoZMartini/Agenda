@@ -33,7 +33,7 @@ class Contato extends Model
 
     public function setFilter()
     {
-        $this->equal('pessoa_id', 'ID da Pessoa')
+        $this->equal('id')
             ->like('contato')
             ->relation('relPessoa', 'nome', 'like', '%?%');
     }

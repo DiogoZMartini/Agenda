@@ -19,6 +19,41 @@ class PessoaController extends Controller
     public function index(Request $request)
     {
 
+        $filtro = ($request->only(['nome', 'sobrenome']));
+
+        $pessoas = Pessoa::where(function ($query) use ($filtro) {
+            foreach ($filtro as $campo => $valor){
+                $query->where($campo, 'LIKE', "%$valor%");
+            }
+        })->get();
+
+        return view('pessoa.index', [
+            'Pessoas' => $pessoas,
+            'filtro' => $filtro,
+        ]);
+
+
+    /*
+
+        $pessoas = Pessoa::filter($request->only(['nome', 'sobrenome']))->get();
+        
+
+        return view('pessoa.index', [
+            'Pessoas' => $pessoas,
+        ]);
+    /*
+
+
+    /*
+        $pessoas = Pessoa::filter(\Request::input('nomeFiltro', []))->get();
+
+        return view('pessoa.index', [
+            'Pessoas' => $pessoas,
+        ]);
+
+    */
+
+        /*
         $filtro = array_filter($request->only(['nome', 'sobrenome']));
 
         $pessoas = Pessoa::when($filtro, function ($query) use ($filtro) {
@@ -29,6 +64,7 @@ class PessoaController extends Controller
             'Pessoas' => $pessoas,
             'filtro' => $filtro,
         ]);
+        */
 
     }
 
@@ -110,20 +146,22 @@ class PessoaController extends Controller
     {
 
         $Pessoa = Pessoa::with(['relEndereco', 'relContato', 'relContato.relDominioTipoContato'])->find($id);
-        $Contato = $Pessoa->relContato;
+        //$Contato = $Pessoa->relContato;
          
         if($Pessoa){
             $dados = [
                 'pessoa'        => $Pessoa->toArray(),
                 'endereco'      => $Pessoa->relEndereco->toArray(),
                 'contatos'      => $Pessoa->relContato->toArray(),
-                'tipoContato'   => [],
+                'tipoContato'   => $Pessoa->relContato->relDominioTipoContato->toArray(),
             ];
+            /*
             foreach($Contato as $Contato){
                 $dados['tipoContato'][] = [
                     'tipoContato' => $Contato->relDominioTipoContato->toArray(),
                 ];
             }
+            */
 
 
             return response()->json($dados);
