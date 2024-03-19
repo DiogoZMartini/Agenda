@@ -146,22 +146,21 @@ class PessoaController extends Controller
     {
 
         $Pessoa = Pessoa::with(['relEndereco', 'relContato', 'relContato.relDominioTipoContato'])->find($id);
-        //$Contato = $Pessoa->relContato;
-         
+        $Contatos = $Pessoa->relContato;
         if($Pessoa){
             $dados = [
                 'pessoa'        => $Pessoa->toArray(),
                 'endereco'      => $Pessoa->relEndereco->toArray(),
-                'contatos'      => $Pessoa->relContato->toArray(),
-                'tipoContato'   => $Pessoa->relContato->relDominioTipoContato->toArray(),
+                'contatos'      => [],
             ];
-            /*
-            foreach($Contato as $Contato){
-                $dados['tipoContato'][] = [
-                    'tipoContato' => $Contato->relDominioTipoContato->toArray(),
+            foreach($Contatos as $Contato){
+                $tipoContato = $Contato->relDominioTipoContato->toArray();
+                $dados['contatos'][] = [
+                    'contatos' => $Contato->toArray(),
+                    'tipoContato' => $tipoContato,
                 ];
-            }
-            */
+            };
+
 
 
             return response()->json($dados);
