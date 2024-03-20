@@ -17,10 +17,10 @@ class ContatoController extends Controller
      */
     public function index(Request $request)
     {
-        $filtro = array_filter($request->only(['contato']));
+        $filtro = $request->contato;
 
-        $Contato = Contato::when($filtro, function ($query) use ($filtro) {
-            $query->where($filtro);
+        $Contato = Contato::where(function ($query) use ($filtro) {
+                $query->where('contato', 'LIKE', "%$filtro%");
         })->get();
 
 
@@ -91,13 +91,16 @@ class ContatoController extends Controller
     {
 
         $Contato = Contato::find($id);
-        $TipoContatos = DominioTipoContato::find($Contato->tipo_contato_fk);
-        return view('contato.show', [
+        if($Contato){
+            $dados = [
+                'contato'       => $Contato->toArray(),
+                'tipoContato'   => $Contato->relDominioTipoContato->toArray(),
+            ];
 
-            'Contato' => $Contato,
-            'TipoContatos' => $TipoContatos, 
-        
-        ]);
+            return response()->json($dados);
+        }else{
+            return response()->json(['error' => 'Contato não encontrada'], 404);
+        }
 
     }
 

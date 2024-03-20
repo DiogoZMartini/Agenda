@@ -19,13 +19,17 @@ $('#visualizarModal').on('show.bs.modal', function(event){
             $('#numero').val(data.endereco.numero);
             $('#complemento').val(data.endereco.complemento);
             if(data.contatos.length > 0){
-                data.contatos.forEach(function(contatos){             
+                data.contatos.forEach(function(item){   
+                    var contato = item.contatos;
+                    var tipoContato = item.tipoContato;
+            
                     $('#contatos').append(
-                            '<tr> <td>'+ contatos.contato +'</td> <td>'+ contatos.tipoContato.descricao +'</td> </tr>',                       
+                        '<tr> <td>'+ contato.contato +'</td> <td>'+ tipoContato.descricao +'</td> </tr>'
+                        
                     );
                 });
             }else {
-                $('#contatoLista').append('Contatos não encontrado');
+                $('#contatoLista').append('Contatos não encontrados');
             }
 
         },
@@ -38,4 +42,4 @@ $('#visualizarModal').on('show.bs.modal', function(event){
         window.location.reload(true);
     })
 
-})
+});

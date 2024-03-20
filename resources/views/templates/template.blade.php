@@ -27,5 +27,6 @@
     <script src="{{ asset('js/editarContato.js') }}"></script>
     <script src="{{ asset('js/visualizar.js') }}"></script>
     <script src="{{ asset('js/cadastrarContato.js') }}"></script>
+    <script src="{{ asset('js/visualizarContato.js') }}"></script>
 </body>
 </html>

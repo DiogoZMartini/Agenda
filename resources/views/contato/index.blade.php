@@ -5,9 +5,10 @@
         <h1 class="titulo">Contatos</h1>
         <hr>
         <form method="get" action="{{ route('contato.index') }}" class="form-inline">
+            {{ csrf_field() }}
             <div class="form-group">
                 <label for="contato" class="sr-only">Contato:</label>
-                <input type="text" class="form-control" name="contato" value="{{ $filtro['contato'] ?? '' }}" placeholder="Contato">
+                <input type="text" class="form-control" name="contato" value="{{ $filtro ?? '' }}" placeholder="Contato">
             </div>
             <button type="submit" class="btn glyphicon glyphicon-search btn btn-info btnFiltro"></button>
         </form>
@@ -28,9 +29,7 @@
                         <td>{{ $Contato->relPessoa->nome }}</td>
                         <td>{{ $Contato->relDominioTipoContato->descricao}}</td>
                         <td>
-                            <a href="{{ route('contato.show', ['id' => $Contato])}}"  >
-                                <button class="btn glyphicon glyphicon-eye-open btn-success"></button>
-                            </a>
+                                <button class="btn glyphicon glyphicon-eye-open btn-success" data-toggle="modal" data-target="#visualizarContatoModal" data-id="{{ $Contato->id }}"></button>
                         </td>
                         <td>
                                 <button class="btn glyphicon glyphicon-pencil btn-primary" data-toggle="modal" data-target="#editContatoModal" data-id="{{ $Contato->id }}"></button>
@@ -114,4 +113,45 @@
           </div>
         </div>
       </div>
+    <!-- Modal Visualizar-->
+    <form id="formVisualisarContato">
+        {{ csrf_field() }}
+        <div class="modal fade " id="visualizarContatoModal" tabindex="-1" role="dialog" aria-labelledby="visualizarContatoModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close voltar" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="visualizarContatoModalLabel">Dados do Contato</h4>
+                    </div>
+                    @if($errors->any())
+                        <div class="alert alert-danger" role="alert">
+                            Preencha Corretamente todos os Campos requeridos
+                        </div>
+                    @endif
+                    <div class="camposFormularios">
+                        <div class="form-group">
+                            <label for="contato" class="control-label furmularioTextoShow">Contato</label>
+                            <div class="formularioImput formularioImputShow">
+                                <input class="form-control" type="text" name="contatoVisualizar" id="contatoVisualizar" disabled>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="anotacao" class="control-label furmularioTextoShow">Tipo</label>
+                            <div class="formularioImput formularioImputShow">
+                                <input class="form-control" type="text" name="tipoContatoVisualizar" id="tipoContatoVisualizar" disabled>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="anotacao" class="control-label furmularioTextoShow">Anotação</label>
+                            <div class="formularioImput formularioImputAnotacao ">
+                            <p id="anotacaoVisualizar"></p>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                    <button type="button" class="btn btn-default voltar" data-dismiss="modal" >Voltar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
 @endsection
