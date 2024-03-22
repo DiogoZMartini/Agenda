@@ -8,24 +8,23 @@ $('#visualizarModal').on('show.bs.modal', function(event){
         url: "/pessoa/show/" + recipientId,
         method: "GET",
         success: function(data){
-            $('#nome').val(data.pessoa.nome);
-            $('#sobrenome').val(data.pessoa.sobrenome);
-            $('#sexo').val(data.pessoa.sexo);
-            $('#cep').val(data.endereco.cep)
-            $('#estado').val(data.endereco.estado);
-            $('#cidade').val(data.endereco.cidade);
-            $('#bairro').val(data.endereco.bairro);
-            $('#rua').val(data.endereco.rua);
-            $('#numero').val(data.endereco.numero);
-            $('#complemento').val(data.endereco.complemento);
-            if(data.contatos.length > 0){
-                data.contatos.forEach(function(item){   
-                    var contato = item.contatos;
-                    var tipoContato = item.tipoContato;
+            console.log(data);
+            $('#nome').val(data.nome);
+            $('#sobrenome').val(data.sobrenome);
+            $('#sexo').val(data.sexo);
+            $('#cep').val(data.rel_endereco.cep)
+            $('#estado').val(data.rel_endereco.estado);
+            $('#cidade').val(data.rel_endereco.cidade);
+            $('#bairro').val(data.rel_endereco.bairro);
+            $('#rua').val(data.rel_endereco.rua);
+            $('#numero').val(data.rel_endereco.numero);
+            $('#complemento').val(data.rel_endereco.complemento);
+            console.log(data.rel_contato);
+            if(data.rel_contato){
+                data.rel_contato.forEach(function(contato){                     ;
             
                     $('#contatos').append(
-                        '<tr> <td>'+ contato.contato +'</td> <td>'+ tipoContato.descricao +'</td> </tr>'
-                        
+                        '<tr> <td>'+ contato.contato +'</td> <td>'+ contato.rel_dominio_tipo_contato.descricao +'</td> </tr>'
                     );
                 });
             }else {

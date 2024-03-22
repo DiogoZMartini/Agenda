@@ -146,24 +146,8 @@ class PessoaController extends Controller
     {
 
         $Pessoa = Pessoa::with(['relEndereco', 'relContato', 'relContato.relDominioTipoContato'])->find($id);
-        $Contatos = $Pessoa->relContato;
         if($Pessoa){
-            $dados = [
-                'pessoa'        => $Pessoa->toArray(),
-                'endereco'      => $Pessoa->relEndereco->toArray(),
-                'contatos'      => [],
-            ];
-            foreach($Contatos as $Contato){
-                $tipoContato = $Contato->relDominioTipoContato->toArray();
-                $dados['contatos'][] = [
-                    'contatos' => $Contato->toArray(),
-                    'tipoContato' => $tipoContato,
-                ];
-            };
-
-
-
-            return response()->json($dados);
+            return response()->json($Pessoa);
         }else{
             return response()->json(['error' => 'Pessoa não encontrada'], 404);
         }
