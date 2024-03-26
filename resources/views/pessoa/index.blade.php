@@ -10,6 +10,11 @@
                 <button class="cadastrar btn btn-primary btn-sm">Cadastrar</button>
             </a>
         </div>
+        <div>
+            <a href="{{ route('teste') }}">
+                <button class="cadastrar btn btn-primary btn-sm">TESTE</button>
+            </a>
+        </div>
         <form method="get" action="{{ route('pessoa.index') }}" class="form-inline">
             {{ csrf_field() }}
             <div class="form-group">
